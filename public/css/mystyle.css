@@ -1,0 +1,20 @@
+.bt-order, .bg-input {
+    border-radius: 20px!important;
+}
+.con-table {
+    margin-top: 50px;
+}
+.bg-model {
+    background: #f0f2f0 !important;
+    border-radius: 10px!important;
+    position: fixed;
+}
+.bg-header-model{
+    border-top-left-radius: 10px!important;
+    border-top-right-radius: 10px!important;
+}
+.radio-bg {
+    padding: 20px!important;
+    border-radius: 20px!important;
+    margin-left: 20px;
+}
