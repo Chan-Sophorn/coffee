@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\User\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +23,43 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/order', function () {
-    return view('orders');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('user')->name('user.')->group(function(){
+
+    Route::middleware(['guest:web', 'PreventBackHistory'])->group(function(){
+        Route::view('/login', 'dashboard.user.login')->name('login');
+        Route::view('/register', 'dashboard.user.register')->name('register');
+        Route::post('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/check', [UserController::class, 'check'])->name('check');
+    });
+
+    Route::middleware(['auth:web', 'PreventBackHistory'])->group(function(){
+         Route::view('/home', 'dashboard.user.home')->name('home');
+    });
 });
 
-Route::get('/master', function (){
-    return view('admin.master');
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    Route::middleware(['guest:admin'])->group(function(){
+        Route::view('/login', 'dashboard.admin.login')->name('login');
+        Route::post('/check', [AdminController::class, 'check'])->name('check');
+        // Route::view('/register', 'dashboard.user.register')->name('register');
+        // Route::post('/create', [UserController::class, 'create'])->name('create');
+       
+    });
+
+    Route::middleware(['auth:admin'])->group(function(){
+         Route::view('/home', 'dashboard.admin.home')->name('home');
+    });
 });
+
+
+Route::resource('/product', \App\Http\Controllers\ProductController::class);
+
+// Route::resource('/orders', OrderController::class);
+
+
+// Route::group(['middleware' => ['auth']], function () {
+// });
