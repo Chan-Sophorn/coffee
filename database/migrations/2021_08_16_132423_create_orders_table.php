@@ -18,11 +18,11 @@ class CreateOrdersTable extends Migration
     $table->string('name');
     $table->string('type');
     $table->string('size');
-    $table->double('sugar', 8, 2);
+    $table->integer('sugar');
     $table->integer('qty');
-    $table->double('price', 8, 2);
-    $table->double('total', 8, 2);
-    $table->dateTime('date', 0);
+    $table->decimal('price',9,3);
+    $table->decimal('total',9,3);
+    $table->date('date');
     $table->timestamps();
 });
 }
