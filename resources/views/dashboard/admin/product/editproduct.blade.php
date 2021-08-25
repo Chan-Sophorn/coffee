@@ -1,19 +1,23 @@
-@extends('admin.master')
-@section('title','Product')
-@section('contentadmin')
+@extends('dashboard.admin.master')
+@section('title', 'Product')
+@section('content')
 
     <div class="container">
         <div class="col-md-10 m-auto">
-            <div class="container"><p class="h3 mt-3">From Add Product</p></div>
-            <form action="{{route('product.store')}}" method="POST">
+            <div class="container">
+                <p class="h3 mt-3">From Update Product</p>
+            </div>
+            <form action="{{ route('admin.product.update', $product->id) }}">
                 @csrf
+                @method('PUT')
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
+                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name"
+                        value="{{ $product->name }}">
                 </div>
                 <div class="form-group">
                     <label for="type" class="col-md-4 col-form-label col-form-label-sm">Type</label>
-                    <select id="type" name="type" class="form-select bg-input">
+                    <select id="type" name="type" class="form-select bg-input" value="{{ $product->type }}">
                         <option selected>Hot</option>
                         <option selected>Ice</option>
                         <option selected>Frappe</option>
@@ -36,13 +40,19 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" name="price" id="price"  placeholder="Enter Price">
+                    <input type="number" class="form-control" name="price" id="price" placeholder="Enter Price"
+                        value="{{ $product->price }}">
                 </div>
+                <div class="form-group">
+                    <a class="btn mt-3" href="{{ route('admin.product.index') }}">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>BACK</span>
+                    </a>
 
-                <button type="submit" name="save" class="btn btn-primary mt-3">Save</button>
+                    <button type="submit" name="save" class="btn btn-primary mt-3 float-end">Save</button>
+                </div>
             </form>
         </div>
-
 
     </div>
 

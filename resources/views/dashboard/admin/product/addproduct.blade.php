@@ -1,20 +1,21 @@
-@extends('admin.master')
-@section('title','Product')
-@section('contentadmin')
+@extends('dashboard.admin.master')
+@section('title', 'Product')
+@section('content')
 
     <div class="container">
         <div class="col-md-10 m-auto">
-            <div class="container"><p class="h3 mt-3">From Update Product</p></div>
-            <form action="{{route('product.update', $product->id)}}">
+            <div class="container">
+                <p class="h3 mt-3">From Add Product</p>
+            </div>
+            <form action="{{ route('admin.product.store') }}" method="POST" autocomplete="off">
                 @csrf
-                @method('PUT')
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="{{ $product->name}}" >
+                    <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
                 </div>
                 <div class="form-group">
                     <label for="type" class="col-md-4 col-form-label col-form-label-sm">Type</label>
-                    <select id="type" name="type" class="form-select bg-input" value="{{ $product->type}}">
+                    <select id="type" name="type" class="form-select bg-input">
                         <option selected>Hot</option>
                         <option selected>Ice</option>
                         <option selected>Frappe</option>
@@ -37,18 +38,13 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" name="price" id="price"  placeholder="Enter Price" value="{{ $product->price}}">
+                    <input type="number" class="form-control" name="price" id="price" placeholder="Enter Price">
                 </div>
-                <div class="form-group">
-                    <a class="btn mt-3" href="{{route('product.index')}}">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>BACK</span>
-                    </a>
 
-                    <button type="submit" name="save" class="btn btn-primary mt-3 float-end">Save</button>
-                </div>
+                <button type="submit" name="save" class="btn btn-primary mt-3">Save</button>
             </form>
         </div>
+
 
     </div>
 

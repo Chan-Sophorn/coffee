@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
     /**
@@ -17,7 +18,7 @@ class ProductController extends Controller
         $product = [];
         $product['products'] = Product::get();
 
-        return view('product.product', $product);
+        return view('dashboard.admin.product.product', $product);
     }
 
     /**
@@ -27,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.addproduct');
+        return view('dashboard.admin.product.addproduct');
     }
 
     /**
@@ -52,7 +53,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->save();
 
-        return redirect('product/create');
+        return redirect()->route('admin.product.create');
     }
 
     /**
@@ -75,7 +76,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
 //        $products = Product::find($product);
-        return view('product.editproduct')->with('product', $product);
+        return view('dashboard.admin.product.editproduct')->with('product', $product);
     }
 
     /**
@@ -87,21 +88,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $request->validate([
+       $this->validate($request,[
             'name' => 'required',
             'type' => 'required',
             'size' => 'required',
             'price' => 'required',
         ]);
 
-        $product = Product::find($product);
+        $product = Product::findOrFail($product);
         $product->name = $request->name;
         $product->type = $request->type;
         $product->size = $request->size;
         $product->price = $request->price;
         $product->save();
-        Toastr::success('Product Successfully Saved','Success');
-        return redirect()->route('product.product.index');
+        return redirect()->route('admin.product')->with('message','Update Successfully');
 
     }
 
@@ -113,8 +113,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        Product::find($product)->delete();
-        Toastr::success('Tag Successfully Deleted','Success');
-        return redirect()->back();
+    
+        Product::findOrFail($product)->delete();
+        return redirect()->route('admin.product')->with('message','Delete Successfully');
     }
 }

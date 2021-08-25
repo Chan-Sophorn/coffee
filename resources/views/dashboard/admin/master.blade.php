@@ -67,18 +67,54 @@
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading text-white">Activity</div>
+
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
+                            data-bs-target="#collapsePagesProduct" aria-expanded="false"
+                            aria-controls="collapsePagesProduct">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
                             </div>
-                            Product
-                            <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i></div>
+                            Product Sell
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
                         </a>
-                        <div class="collapse text-white" id="collapseProduct" aria-labelledby="headingOne"
+                        <div class="collapse" id="collapsePagesProduct" aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-white" href="{{ route('product.index') }}">Product List</a>
-                                <a class="nav-link text-white" href="{{ route('product.create') }}">Add Product</a>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="sidenavProduct">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseProduct" aria-expanded="false"
+                                    aria-controls="collapseProduct">
+                                    Product List
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseProduct" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavProduct">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white" href="{{ route('admin.product.index') }}">Type
+                                            &
+                                            Size</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.product.create') }}">Exchange
+                                            Rate</a>
+                                    </nav>
+                                </div>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                                    aria-controls="pagesCollapseAuth">
+                                    Add Product
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white" href="">Type &
+                                            Size</a>
+                                        <a class="nav-link text-white" href="">Exchange
+                                            Rate</a>
+                                    </nav>
+                                </div>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
@@ -113,7 +149,8 @@
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                                     data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="">Register User Admin</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.register') }}">Register
+                                            User Admin</a>
                                         <a class="nav-link text-white" href="{{ route('user.register') }}">Register
                                             User Staff</a>
                                         {{-- <a class="nav-link text-white" href="{{ route('password.request') }}">Forget
