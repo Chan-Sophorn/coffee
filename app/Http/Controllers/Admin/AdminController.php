@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -35,11 +35,11 @@ class AdminController extends Controller
             'cpassword'=>'required|min:5|max:30|same:password',
         ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = \Hash::make($request->password);
-        $save = $user->save(); 
+        $admin = new Admin();
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = \Hash::make($request->password);
+        $save = $admin->save(); 
 
         if($save) {
             return redirect()->back()->with('success', 'You are new registered successful');

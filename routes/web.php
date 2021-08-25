@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,18 +46,22 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::middleware(['guest:admin'])->group(function(){
         Route::view('/login', 'dashboard.admin.login')->name('login');
         Route::post('/check', [AdminController::class, 'check'])->name('check');
-        // Route::view('/register', 'dashboard.user.register')->name('register');
-        // Route::post('/create', [UserController::class, 'create'])->name('create');
-       
+        
+    
     });
 
     Route::middleware(['auth:admin'])->group(function(){
          Route::view('/home', 'dashboard.admin.home')->name('home');
+         Route::resource('/product', ProductController::class);
+         Route::view('/register', 'dashboard.admin.register')->name('register');
+         Route::post('/create', [AdminController::class, 'create'])->name('create');
     });
+
+   
 });
 
 
-Route::resource('/product', \App\Http\Controllers\ProductController::class);
+ 
 
 // Route::resource('/orders', OrderController::class);
 
