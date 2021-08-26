@@ -43,7 +43,7 @@ class ProductController extends Controller
             'name' => 'required',
             'type' => 'required',
             'size' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|between:0,99',
         ]);
 //        Product::created($request->all());
         $product = new Product();
@@ -92,7 +92,7 @@ class ProductController extends Controller
             'name' => 'required',
             'type' => 'required',
             'size' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|between:0,99',
         ]);
 
         $product = Product::findOrFail($product);

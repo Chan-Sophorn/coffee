@@ -15,6 +15,8 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    @stack('css')
 
 </head>
 
@@ -89,12 +91,11 @@
                                 <div class="collapse" id="collapseProduct" aria-labelledby="headingOne"
                                     data-bs-parent="#sidenavProduct">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="{{ route('admin.product.index') }}">Type
-                                            &
-                                            Size</a>
-                                        <a class="nav-link text-white"
-                                            href="{{ route('admin.product.create') }}">Exchange
-                                            Rate</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.read') }}">Cup Size</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.readcoftype') }}">Coffee
+                                            Type</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.index') }}">Coffee
+                                            Name</a>
                                     </nav>
                                 </div>
                             </nav>
@@ -109,10 +110,11 @@
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                                     data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="">Type &
-                                            Size</a>
-                                        <a class="nav-link text-white" href="">Exchange
-                                            Rate</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.cup') }}">Cup Size</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.coffeetype') }}">Coffee
+                                            Type</a>
+                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.create') }}">Coffee
+                                            Name</a>
                                     </nav>
                                 </div>
                             </nav>
@@ -197,6 +199,22 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+
+    <script>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}','Error',{
+                closeButton:true,
+                progressBar:true,
+                });
+            @endforeach
+        
+        @endif
+    </script>
+    @stack('js')
 </body>
 
 </html>

@@ -3,13 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="row">
+            <div class="col-md-4 pt-5">
+                {{-- <div class="row">
                     <div class="col-md-5 align-content-lg-center">
                         <img src="{{ asset('/images/profiles.png') }}" alt="profile" width="70px" height="70px">
                     </div>
 
-                </div>
+                </div> --}}
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row">
@@ -35,8 +35,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <p class="h3 text-center">Team Coffee</p>
+            <div class="col-md-4 text-center ">
+                <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="200px" height="200px" class="">
             </div>
             <div class="col-md-4 m-auto text-right">
                 <input type="button" id="" name="saveorder" value="NEW ORDER" class="btn btn-primary bt-order"
