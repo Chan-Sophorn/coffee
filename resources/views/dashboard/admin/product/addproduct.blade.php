@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" name="price" id="price" placeholder="Enter Price">
+                    <input type="text" class="form-control" name="price" id="price" placeholder="Enter Price">
                 </div>
 
                 <button type="submit" name="save" class="btn btn-primary mt-3">Save</button>

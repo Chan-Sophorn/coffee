@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CoffeeTypeController;
+use App\Http\Controllers\Admin\CupController;
+use App\Http\Controllers\CoffeeNameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User\UserController;
+use App\Models\CoffeeType;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -55,6 +59,23 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::resource('/product', ProductController::class);
          Route::view('/register', 'dashboard.admin.register')->name('register');
          Route::post('/create', [AdminController::class, 'create'])->name('create');
+
+         Route::get('/read', [CupController::class, 'read'])->name('read');
+         Route::get('/cup', [CupController::class, 'index'])->name('cup');
+         Route::post('/createcup', [CupController::class, 'create'])->name('createcup');
+         Route::get('edit/{id}',[CupController::class, 'edit'])->name('edit');
+         Route::put('update/{id}',[CupController::class, 'update'])->name('updatecup');
+         Route::delete('delete/{id}',[CupController::class, 'delete'])->name('deletecup');
+
+         Route::get('/readcoftype', [CoffeeTypeController::class, 'read'])->name('readcoftype');
+         Route::get('/coffeetype', [CoffeeTypeController::class, 'index'])->name('coffeetype');
+         Route::post('/createcoftype', [CoffeeTypeController::class, 'create'])->name('createcoftype');
+         Route::get('/editcoftype/{id}',[CoffeeTypeController::class, 'edit'])->name('editcoftype');
+         Route::put('/updatecoftype/{id}',[CoffeeTypeController::class, 'update'])->name('updatecoftype');
+         Route::delete('/deletecoftype/{id}',[CoffeeTypeController::class, 'delete'])->name('deletecoftype');
+
+         Route::get('/coffeenameread',[CoffeeNameController::class, 'read'])->name('coffeenameread');
+         Route::resource('/coffeename',CoffeeNameController::class);
     });
 
    

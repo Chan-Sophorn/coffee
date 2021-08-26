@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title','Order')
+@section('title', 'Order')
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-md-5 align-content-lg-center">
-                        <img src="{{asset('/images/profiles.png')}}" alt="profile" width="70px" height="70px">
+                        <img src="{{ asset('/images/profiles.png') }}" alt="profile" width="70px" height="70px">
                     </div>
 
                 </div>
@@ -39,7 +39,8 @@
                 <p class="h3 text-center">Team Coffee</p>
             </div>
             <div class="col-md-4 m-auto text-right">
-                <input type="button" id="" name="saveorder" value="NEW ORDER" class="btn btn-primary bt-order" data-bs-toggle="modal" data-bs-target="#modelSave">
+                <input type="button" id="" name="saveorder" value="NEW ORDER" class="btn btn-primary bt-order"
+                    data-bs-toggle="modal" data-bs-target="#modelSave">
             </div>
         </div>
     </div>
@@ -48,38 +49,38 @@
         <div class="row">
             <table class="table table-bordered text-center">
                 <thead class="bg-primary text-white text-center">
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Size</th>
-                    <th scope="col">Sugar</th>
-                    <th scope="col">Qty</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Action</th>
-                </tr>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Sugar</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($selects as $item)
-                    <tr>
-                        <th scope="row">{{$item->id}}</th>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->type}}</td>
-                        <td>{{$item->size}}</td>
-                        <td>{{$item->sugar . "%"}}</td>
-                        <td>{{$item->qty}}</td>
-                        <td>{{$item->price . "$"}}</td>
-                        <td>{{$item->total . "$"}}</td>
-                        <td>{{$item->date}}</td>
-                        <td>
-                            <a href="#" class="text-primary p-1">print</a>
-                            <a href="#"><i class="far fa-edit "></i></a>
-                            <a href="#" class=""><i class="fas fa-trash text-danger"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach ($selects as $item)
+                        <tr>
+                            <th scope="row">{{ $item->id }}</th>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->type }}</td>
+                            <td>{{ $item->size }}</td>
+                            <td>{{ $item->sugar . '%' }}</td>
+                            <td>{{ $item->qty }}</td>
+                            <td>{{ $item->price . "$" }}</td>
+                            <td>{{ $item->total . "$" }}</td>
+                            <td>{{ $item->date }}</td>
+                            <td>
+                                <a href="#" class="text-primary p-1">print</a>
+                                <a href="#"><i class="far fa-edit "></i></a>
+                                <a href="#" class=""><i class="fas fa-trash text-danger"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
 
                 </tbody>
             </table>
