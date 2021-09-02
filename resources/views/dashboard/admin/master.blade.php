@@ -151,9 +151,9 @@
                                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
                                     data-bs-parent="#sidenavAccordionPages">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="{{ route('admin.register') }}">Register
+                                        <a class="nav-link text-white" href="{{ route('admin.listuser') }}">List
                                             User Admin</a>
-                                        <a class="nav-link text-white" href="{{ route('user.register') }}">Register
+                                        <a class="nav-link text-white" href="{{ route('user.register') }}">List
                                             User Staff</a>
                                         {{-- <a class="nav-link text-white" href="{{ route('password.request') }}">Forget
                                             Password</a> --}}

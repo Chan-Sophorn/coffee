@@ -36,7 +36,8 @@
                 </div>
             </div>
             <div class="col-md-4 text-center ">
-                <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="200px" height="200px" class="">
+                <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="200px" height="200px"
+                    class="___class_+?14___">
             </div>
             <div class="col-md-4 m-auto text-right">
                 <input type="button" id="" name="saveorder" value="NEW ORDER" class="btn btn-primary bt-order"
@@ -45,7 +46,7 @@
         </div>
     </div>
 
-    <div class="container con-table">
+    {{-- <div class="container con-table">
         <div class="row">
             <table class="table table-bordered text-center">
                 <thead class="bg-primary text-white text-center">
@@ -63,90 +64,298 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @if ($selects->count() > 0)
-                        @foreach ($selects as $index => $item)
+                    @if ($readsOrder->count() > 0)
+                        @foreach ($readsOrder as $index => $item)
                             <tr>
                                 <th scope="row">{{ $index + 1 }}</th>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->type }}</td>
-                                <td>{{ $item->size }}</td>
+                                <td>{{ $item->CoffeeName->name }}</td>
+                                <td>{{ $item->CoffeeType->name }}</td>
+                                <td>{{ $item->Cup->name }}</td>
                                 <td>{{ $item->sugar . '%' }}</td>
-                                <td>{{ $item->qty }}</td>
+                                <td>{{ $item->quantity }}</td>
                                 <td>{{ $item->price . "$" }}</td>
                                 <td>{{ $item->total . "$" }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>
                                     <a href="#" class="text-primary p-1">print</a>
                                     <a href="#"><i class="far fa-edit "></i></a>
-                                    <a href="#" class=""><i class="fas fa-trash text-danger"></i></a>
+                                    <a href="#" class="___class_+?23___"><i class="fas fa-trash text-danger"></i></a>
                                 </td>
                             </tr>
                         @endforeach
-                    @endif --}}
+                    @endif
 
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> --}}
 
-    <!-- Modal -->
+
+    {{-- <!-- Modal -->
     <div class="modal fade" id="modelSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-model">
                 <div class="modal-header bg-primary bg-header-model">
                     <h5 class="modal-title text-white" id="exampleModalLabel">ADD NEW ORDER</h5>
                 </div>
-                <div class="modal-body">
+                <form action="{{ route('user.storeOrder') }}" method="post">
                     @csrf
-                    <div class="row mb-4">
-                        <label for="coffeeName" class="col-md-4 col-form-label col-form-label-sm">Coffee Name</label>
-                        <div class="col-sm-8">
-                            <select id="inputState" class="form-select bg-input">
-                                <option selected>Coffee Name...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="type" class="col-md-4 col-form-label col-form-label-sm">Type</label>
-                        <div class="col-sm-8">
-                            <select id="type" class="form-select bg-input">
-                                <option selected>Type...</option>
-                                <option selected>Ice</option>
-                                <option selected>Hot</option>
-                                <option selected>Frappe</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="size" class="col-md-4 col-form-label col-form-label-sm">Size</label>
-                        <div class="col-sm-7 bg-white radio-bg">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="size" id="large" value="" checked>
-                                <label class="form-check-label" for="large">large</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="size" id="meduim" value="">
-                                <label class="form-check-label" for="meduim">meduim</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="size" id="small" value="">
-                                <label class="form-check-label" for="small">small</label>
+                    <div class="modal-body">
+                        <div class="row mb-4">
+                            <label for="coffeeName" class="col-md-4 col-form-label col-form-label-sm">Coffee Name</label>
+                            <div class="col-sm-8">
+                                <select id="inputState" class="form-select bg-input" name="coffee">
+                                    <option selected>Coffee Name...</option>
+                                    @foreach ($coffee as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+
+                                </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="sugar" class="col-md-4 col-form-label col-form-label-sm">Sugar</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control bg-input" id="sugar">
+                        <div class="row mb-4">
+                            <label for="type" class="col-md-4 col-form-label col-form-label-sm">Type</label>
+                            <div class="col-sm-8">
+                                <select id="type" class="form-select bg-input" name="type">
+                                    @foreach ($type as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="size" class="col-md-4 col-form-label col-form-label-sm">Size</label>
+                            <div class="col-sm-7 bg-white radio-bg">
+                                @foreach ($size as $item)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="size" value="{{ $item->id }}"
+                                            checked>
+                                        <label class="form-check-label" for="large">{{ $item->name }}</label>
+
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="qty" class="col-md-4 col-form-label col-form-label-sm">Quatity</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control bg-input" id="qty" name="qty">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="sugar" class="col-md-4 col-form-label col-form-label-sm">Sugar</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control bg-input" id="sugar" name="sugar">
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light bt-order" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary bt-order">Save Order</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div> --}}
+
+    {{-- Add dynamic input --}}
+    <div class="container con-table">
+        <form action="">
+            <section>
+                <div class="row panel panel-item">
+                    <table class="table table-bordered text-center">
+                        <thead class="bg-primary text-white text-center">
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                                <th>Sugar</th>
+                                <th>Price</th>
+                                <th><a href="#" id="add_row"><i class="fas fa-plus text-white"></i></a></th>
+                            </tr>
+                        </thead>
+                        <tbody style="background: rgb(224, 222, 222)">
+                            {{-- <tr>
+                                <td style="width: 200px;">
+                                    <div>
+                                        <select class="form-select form-control" name="coffee[]">
+                                            <option selected>Coffee Name...</option>
+                                            @foreach ($coffee as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width: 200px;">
+                                    <div>
+                                        <select id="type" class="form-select " name="type">
+                                            @foreach ($type as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width: 200px;">
+                                    <div>
+                                        <select id="type" class="form-select " name="type">
+                                            @foreach ($type as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width: 200px;">
+                                    <div>
+                                        <select id="type" class="form-select " name="type">
+                                            @foreach ($type as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="width: 200px;">
+                                    <div>
+                                        <select id="type" class="form-select " name="type">
+                                            @foreach ($type as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-danger btn-small remove"><i class="fas fa-minus"></i></a>
+                                </td>
+                            </tr> --}}
+
+                        </tbody>
+                        <tfoot>
+                            <tr style="background: rgb(238, 238, 238)">
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <th>Total</th>
+                                <td></td>
+                                <td><a href="#" class="btn btn-success btn-small" id="add_row" style="width: 100px;">
+                                        Saves</a></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light bt-order" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary bt-order">Save Order</button>
+            </section>
+        </form>
+    </div>
+
+
+
+    <!-- Modal Save -->
+    <div class="modal fade" id="modelSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-model">
+                <div class="modal-header bg-primary bg-header-model">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">ADD NEW ORDER</h5>
                 </div>
+                <form action="">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row mb-4">
+                            <label for="coffeeName" class="col-md-4 col-form-label col-form-label-sm">Coffee Name</label>
+                            <div class="col-sm-8">
+                                <select id="inputState" class="form-select bg-input" name="coffee" id="coffee_name">
+                                    <option selected>Coffee Name...</option>
+                                    @foreach ($coffee as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="type" class="col-md-4 col-form-label col-form-label-sm">Type</label>
+                            <div class="col-sm-8">
+                                <select id="type" class="form-select bg-input" name="type">
+                                    @foreach ($type as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="size" class="col-md-4 col-form-label col-form-label-sm">Size</label>
+                            <div class="col-sm-7 bg-white radio-bg">
+                                @foreach ($size as $item)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="size" value="{{ $item->id }}"
+                                            checked>
+                                        <label class="form-check-label" for="large">{{ $item->name }}</label>
+
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="qty" class="col-md-4 col-form-label col-form-label-sm">Quatity</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control bg-input" id="qty" name="qty">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="sugar" class="col-md-4 col-form-label col-form-label-sm">Sugar</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control bg-input" id="sugar" name="sugar">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light bt-order" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary bt-order" id="addRow">Save
+                            Order</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
 @endsection
+@push('js')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#addRow').click(function() {
+                addRow();
+            });
+
+            function addRow() {
+                // var coffee_name = document.getElementById('coffee_name').value;
+                var coffee_name = $('#coffee_name').value;
+
+                var tr = '<tr>' +
+                    '<td>' + coffee_name + '</td>' +
+                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
+                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
+                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
+                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
+                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
+                    '<td><a href="#" id="remove"><i class="fas fa-trash text-danger"></i></a></td>' +
+                    '</tr >';
+                $('tbody').append(tr);
+
+                $('tbody').on('click', '#remove', function() {
+                    $(this).parent().parent().remove();
+                    // alert();
+                });
+            }
+
+        });
+    </script>
+@endpush
+
+{{-- '<td style="width: 200px;"> <div>< select class = "form-select form-control" name = "coffee"><option selected > Coffee Name... < /option>< /select></div >< /td>' --}}
