@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Order')
+@push('css')
+    <link href="{{ asset('css/materialize.css') }}" rel="stylesheet">
+@endpush
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">

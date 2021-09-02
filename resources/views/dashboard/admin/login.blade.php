@@ -1,5 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Order')
+@section('title', 'Login')
+@push('css')
+    <link href="{{ asset('css/materialize.css') }}" rel="stylesheet">
+@endpush
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
@@ -40,10 +43,13 @@
                                             &nbsp;&nbsp;ចូល
                                         </div>
                                     </button>
-                                    <p style=" font-size:12px;text-align:center"><a href="#"></a>
-                                        <a href="{{ route('user.register') }}" style=" font-size:12px;margin-left:10px;">Register
+                                    <p style=" font-size:12px;text-align:start"><a href="#"></a>
+                                        <a href="{{ route('user.login') }}" style=" font-size:12px; margin-left: 60px;">Staff login
+                                            ?</a>
+                                        <a href="{{ route('admin.register') }}" style=" font-size:12px; margin-left: 40px;">Register
                                             ?</a>
                                     </p>
+
                                 </div>
                             </form>
                         </div>

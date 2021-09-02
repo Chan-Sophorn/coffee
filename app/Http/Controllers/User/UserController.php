@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +27,11 @@ class UserController extends Controller
         $save = $user->save(); 
 
         if($save) {
-            return redirect()->back()->with('success', 'You are new registered successful');
+            Toastr::success('You are new registered successful :)', 'Success');
+            return redirect()->back();
         }else {
-            return redirect()->back()->with('fail', 'Something went wrong, failed to register');
+            Toastr::error('Something went wrong, failed to register :(', 'Error');
+            return redirect()->back();
         }
     }
 
@@ -42,9 +45,10 @@ class UserController extends Controller
 
         $creds = $request->only('email', 'password');
         if(Auth::guard('web')->attempt($creds)){
-            return redirect()->route('user.home');
+            return redirect()->route('user.index');
         }else {
-            return redirect()->route('user.login')->with('fail', "Incorrect creadentials");
+            Toastr::error('Please try again :(', 'Error');
+            return redirect()->route('user.login');
         }
     }
 }

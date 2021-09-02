@@ -9,14 +9,14 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'type',
-        'size',
-        'sugar',
-        'qty',
-        'price',
-        'total',
-        'date',
-    ];
+    public function CoffeeName(){
+        return $this->belongsTo(CoffeeName::class, 'name_id');
+    }
+
+    public function CoffeeType(){
+        return $this->belongsTo(CoffeeType::class, 'type_id');
+    }
+     public function Cup(){
+        return $this->belongsTo(Cup::class, 'size_id');
+    }
 }

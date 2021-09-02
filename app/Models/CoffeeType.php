@@ -13,4 +13,8 @@ class CoffeeType extends Model
         'name',
         'price',
     ];
+
+    public function order(){
+        return $this->hasMany(Order::class, 'type_id');
+    }
 }

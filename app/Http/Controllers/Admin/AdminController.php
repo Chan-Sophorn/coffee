@@ -4,12 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Expr\New_;
 
 class AdminController extends Controller
 {
+
+    public function read(){
+        $reads = Admin::all();
+        return view('dashboard.admin.read', compact('reads'));
+    }
+
     public function check(Request $request){
         $request->validate([
             'email'=>'required|email|exists:admins,email',
@@ -22,7 +30,8 @@ class AdminController extends Controller
         if(Auth::guard('admin')->attempt($creds)){
             return redirect()->route('admin.home');
         }else {
-            return redirect()->route('admin.login')->with('fail', "Incorrect creadentials");
+            Toastr::error('Please try again :(', 'Error');
+            return redirect()->route('admin.login');
         }
     }
 
@@ -42,9 +51,11 @@ class AdminController extends Controller
         $save = $admin->save(); 
 
         if($save) {
-            return redirect()->back()->with('success', 'You are new registered successful');
+            Toastr::success('You are new registered successful :)', 'Success');
+            return redirect()->back();
         }else {
-            return redirect()->back()->with('fail', 'Something went wrong, failed to register');
+            Toastr::error('Something went wrong, failed to register :(', 'Error');
+            return redirect()->back();
         }
     }
 }
