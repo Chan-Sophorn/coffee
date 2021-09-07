@@ -24,6 +24,7 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request){
 
+        dd($request->orders);
       //  return $request;
         $request->validate([
             'coffee'=>'required',
@@ -34,28 +35,28 @@ class OrderController extends Controller
         ]);
         $order = new Order();
         $order->name_id = $request->coffee;
-            
+
         $coffee = CoffeeName::findOrFail($request->coffee);
         $type = CoffeeType::findOrFail($request->type);
         $size = Cup::findOrFail($request->size);
 
         $subPrice = $coffee->price + $type->price + $size->price;
-    
+
         $order->type_id = $request->type;
         $order->size_id = $request->size;
         $order->sugar = $request->sugar;
         $order->quantity = $request->qty;
         $order->price = $subPrice;
         $order->total = $subPrice * $request->qty;
-        
+
         $save = $order->save();
-        if($save) {
-            Toastr::success('You are already save :)', 'Success');
-            return redirect()->back();
-        }else {
-            Toastr::error('Fail, please try agian :(', 'Error');
-            return redirect()->back();
-        }
+        // if($save) {
+        //     Toastr::success('You are already save :)', 'Success');
+        //     return redirect()->back();
+        // }else {
+        //     Toastr::error('Fail, please try agian :(', 'Error');
+        //     return redirect()->back();
+        // }
 
     }
 }

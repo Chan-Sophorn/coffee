@@ -83,13 +83,13 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::resource('/coffeename',CoffeeNameController::class);
     });
 
-   
+
 });
 
 
- 
 
-// Route::resource('/orders', OrderController::class);
+
+Route::resource('/orders', OrderController::class);
 
 
 // Route::group(['middleware' => ['auth']], function () {

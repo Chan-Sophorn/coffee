@@ -176,7 +176,7 @@
                                 <th><a href="#" id="add_row"><i class="fas fa-plus text-white"></i></a></th>
                             </tr>
                         </thead>
-                        <tbody style="background: rgb(224, 222, 222)">
+                        <tbody id="tbody" style="background: rgb(224, 222, 222)">
                             {{-- <tr>
                                 <td style="width: 200px;">
                                     <div>
@@ -238,8 +238,8 @@
                                 <td style="border: none"></td>
                                 <td style="border: none"></td>
                                 <th>Total</th>
-                                <td></td>
-                                <td><a href="#" class="btn btn-success btn-small" id="add_row" style="width: 100px;">
+                                <td> <span class="total"></span></td>
+                                <td><a href="#" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
                                         Saves</a></td>
                             </tr>
                         </tfoot>
@@ -264,7 +264,7 @@
                         <div class="row mb-4">
                             <label for="coffeeName" class="col-md-4 col-form-label col-form-label-sm">Coffee Name</label>
                             <div class="col-sm-8">
-                                <select id="inputState" class="form-select bg-input" name="coffee" id="coffee_name">
+                                <select class="form-select bg-input" name="coffee" id="coffee_name">
                                     <option selected>Coffee Name...</option>
                                     @foreach ($coffee as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -288,7 +288,7 @@
                             <div class="col-sm-7 bg-white radio-bg">
                                 @foreach ($size as $item)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="size" value="{{ $item->id }}"
+                                        <input class="form-check-input" type="radio" name="size" id="size" value="{{ $item->id }}"
                                             checked>
                                         <label class="form-check-label" for="large">{{ $item->name }}</label>
 
@@ -322,40 +322,83 @@
 @endsection
 @push('js')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script> --}}
 
     <script type="text/javascript">
         $(document).ready(function() {
+            var all_orders = []
+            var coffe_order = {
+                type: {id: 0,name: ''},
+                size: '',
+                qty: 0,
+                sugar: 0,
+                coffee_type: {
+                    id: 0,
+                    name:0,
+                },
+                price: 30
+
+            }
 
             $('#addRow').click(function() {
                 addRow();
             });
+            $('#SaveOrder').click(function() {
+                      var data={
+                        orders: all_orders,
+
+                    "_token": "{{csrf_token()}}",
+            };
+            let route = '{{url("user/storeOrder")}}'
+            $.post(route,data,function(resspone){
+                if(resspone){
+                    // window.location.reload();
+                }
+            });
+            });
+
+
+            $('tbody').on('click', '#remove', function() {
+                    $(this).parent().parent().remove();
+                    console.log($(this).parent().parent().children());
+
+                    // alert();
+            });
 
             function addRow() {
                 // var coffee_name = document.getElementById('coffee_name').value;
-                var coffee_name = $('#coffee_name').value;
-
+                coffe_order.coffee_type.id = $( "#coffee_name").val();
+                coffe_order.type.id = $( "#type").val();
+                coffe_order.type.name = $("#type option:selected").text();
+                coffe_order.qty = $( "#qty").val();
+                coffe_order.sugar = $( "#sugar").val();
+                coffe_order.size = $( "#size").val();
+                coffe_order.price = 20;
+                coffe_order.coffee_type.name = $("#coffee_name option:selected").text()
                 var tr = '<tr>' +
-                    '<td>' + coffee_name + '</td>' +
-                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
-                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
-                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
-                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
-                    '<td><input name="" id="" class="form-control" type="text" value=""></td>' +
-                    '<td><a href="#" id="remove"><i class="fas fa-trash text-danger"></i></a></td>' +
+                    '<td>' + coffe_order.coffee_type.name  + '</td>' +
+                    '<td>' + coffe_order.type.name  + '</td>' +
+                    '<td>' + coffe_order.size  + '</td>' +
+                    '<td>'+ coffe_order.qty + '</td>' +
+                    '<td>'+ coffe_order.sugar + '</td>' +
+                    '<td>'+ coffe_order.price + '</td>' +
+                    '<td><a href="#" id="remove" data-id='+coffe_order.coffee_type.id+'><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
-                $('tbody').append(tr);
-
-                $('tbody').on('click', '#remove', function() {
-                    $(this).parent().parent().remove();
-                    // alert();
+                $('#tbody').append(tr);
+                all_orders.push(coffe_order)
+                var total = 0;
+                all_orders.forEach(item=>{
+                    console.log(item.price);
+                    total = total + parseFloat(item.price);
                 });
-            }
+                console.log(total,'total');
+                console.log(all_orders,'total all araay');
+                $('.total').text(total);
 
+
+
+            }
         });
     </script>
 @endpush
-
-{{-- '<td style="width: 200px;"> <div>< select class = "form-select form-control" name = "coffee"><option selected > Coffee Name... < /option>< /select></div >< /td>' --}}
