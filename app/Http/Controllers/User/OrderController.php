@@ -9,6 +9,7 @@ use App\Models\Cup;
 use App\Models\Order;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\Double;
 use PhpParser\Node\Expr\New_;
 
 class OrderController extends Controller
@@ -24,32 +25,38 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request){
 
-        dd($request->orders);
+        // dd($request->orders);
       //  return $request;
-        $request->validate([
-            'coffee'=>'required',
-            'type'=>'required',
-            'size'=>'required',
-            'qty'=>'required',
-            'sugar'=>'required',
-        ]);
-        $order = new Order();
-        $order->name_id = $request->coffee;
+        // $request->validate([
+        //     'coffee'=>'required',
+        //     'type'=>'required',
+        //     'size'=>'required',
+        //     'qty'=>'required',
+        //     'sugar'=>'required',
+        // ]);
+        $save = null;
+        foreach($request->orders as $item){
+            $order = new Order();
+            // dd($item['coffee_type']['id']);
+            $order->name_id =(int) $item['coffee_type']['id'];
 
-        $coffee = CoffeeName::findOrFail($request->coffee);
-        $type = CoffeeType::findOrFail($request->type);
-        $size = Cup::findOrFail($request->size);
+            $coffee = CoffeeName::findOrFail( $item['coffee_type']['id']);
+            $type = CoffeeType::findOrFail($item['type']['id']);
+            $size = Cup::findOrFail($item['size']);
 
-        $subPrice = $coffee->price + $type->price + $size->price;
+            $subPrice =floatval($item['price']) ;
 
-        $order->type_id = $request->type;
-        $order->size_id = $request->size;
-        $order->sugar = $request->sugar;
-        $order->quantity = $request->qty;
-        $order->price = $subPrice;
-        $order->total = $subPrice * $request->qty;
+            $order->type_id = (int) $item['type']['id'];
+            $order->size_id = (int) $item['size'];
+            $order->sugar = $item['sugar'];
+            $order->quantity = $item['qty'];
+            $order->price = $subPrice;
+            $order->total = $subPrice *  floatval($item['qty']);
+            $save = $order->save();
 
-        $save = $order->save();
+        }
+        return $save;
+
         // if($save) {
         //     Toastr::success('You are already save :)', 'Success');
         //     return redirect()->back();

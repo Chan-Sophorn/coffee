@@ -327,7 +327,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var all_orders = []
+            var all_orders = [];
             var coffe_order = {
                 type: {id: 0,name: ''},
                 size: '',
@@ -339,7 +339,7 @@
                 },
                 price: 30
 
-            }
+            };
 
             $('#addRow').click(function() {
                 addRow();
@@ -353,22 +353,76 @@
             let route = '{{url("user/storeOrder")}}'
             $.post(route,data,function(resspone){
                 if(resspone){
-                    // window.location.reload();
+
+                    let contents = `
+                        <html>
+                        <header>
+                        </header>
+                        <body>
+                            <table>
+                                <tr>
+                    <td>${coffe_order.coffee_type.name}</td>
+                    <td>${coffe_order.type.name} </td>
+                    <td>${coffe_order.size} </td>
+                    <td>${coffe_order.qty }</td>
+                    <td>${coffe_order.sugar} </td>
+                    <td>${coffe_order.price }</td>
+
+                    </tr >
+                            </table>
+                        </body>
+                        </html>
+                    `;
+
+                    var frame1 = document.createElement('iframe');
+                    frame1.name = "frame1";
+                    frame1.style.position = "absolute";
+                    frame1.style.top = "-1000000px";
+                    document.body.appendChild(frame1);
+                    var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+                    frameDoc.document.open();
+                    frameDoc.document.write(contents);
+                    frameDoc.document.close();
+                    setTimeout(function () {
+                        //   window.frames["frame1"].focus();
+                        window.frames["frame1"].print();
+                        document.body.removeChild(frame1);
+                    }, 300);
+
                 }
             });
             });
 
 
             $('tbody').on('click', '#remove', function() {
+                    var item_id = $(this).data('id');
+                    console.log(item_id)
+                    // let index = all_orders.findIndex(item => item.coffee_type.id == item_id);
+                    // console.log(index,'Index',item_id,'reomve item_id');
+                    // all_orders.splice(index,1);
+                    let fillter = all_orders.filter((item) => {
+                        console.log(item.coffee_type.id, item_id,'item id reomve');
+                        if(parseInt(item.coffee_type.id) === parseInt(item_id)){
+                            return item;
+                        }
+                    });
+                    console.log(fillter,'have remvoe');
                     $(this).parent().parent().remove();
-                    console.log($(this).parent().parent().children());
 
-                    // alert();
+
             });
+
+               // $('tbody').on('click', '#remove', function() {
+            //         $(this).parent().parent().remove();
+            //         console.log($(this).parent().parent().children());
+
+            //         // alert();
+            // });
+
 
             function addRow() {
                 // var coffee_name = document.getElementById('coffee_name').value;
-                coffe_order.coffee_type.id = $( "#coffee_name").val();
+                coffe_order.coffee_type.id = $( "#coffee_name option:selected").val();
                 coffe_order.type.id = $( "#type").val();
                 coffe_order.type.name = $("#type option:selected").text();
                 coffe_order.qty = $( "#qty").val();
@@ -386,6 +440,7 @@
                     '<td><a href="#" id="remove" data-id='+coffe_order.coffee_type.id+'><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
+                console.log(coffe_order,'order itme');
                 all_orders.push(coffe_order)
                 var total = 0;
                 all_orders.forEach(item=>{
