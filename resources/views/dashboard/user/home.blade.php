@@ -328,7 +328,9 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var all_orders = [];
+            var id= 1;
             var coffe_order = {
+                id: 0,
                 type: {id: 0,name: ''},
                 size: '',
                 qty: 0,
@@ -353,22 +355,26 @@
             let route = '{{url("user/storeOrder")}}'
             $.post(route,data,function(resspone){
                 if(resspone){
-
+                    let my_tr = ''
+                    all_orders.forEach(i=> {
+                        my_tr +=`
+                            <tr>
+                                <td>${i.coffee_type.name}</td>
+                                <td>${i.type.name} </td>
+                                <td>${i.size} </td>
+                                <td>${i.qty }</td>
+                                <td>${i.sugar} </td>
+                                <td>${i.price }</td>
+                            </tr >
+                        `;
+                    })
                     let contents = `
                         <html>
                         <header>
                         </header>
                         <body>
                             <table>
-                                <tr>
-                    <td>${coffe_order.coffee_type.name}</td>
-                    <td>${coffe_order.type.name} </td>
-                    <td>${coffe_order.size} </td>
-                    <td>${coffe_order.qty }</td>
-                    <td>${coffe_order.sugar} </td>
-                    <td>${coffe_order.price }</td>
-
-                    </tr >
+                               ${my_tr}
                             </table>
                         </body>
                         </html>
@@ -387,6 +393,7 @@
                         //   window.frames["frame1"].focus();
                         window.frames["frame1"].print();
                         document.body.removeChild(frame1);
+                        window.location.reload();
                     }, 300);
 
                 }
@@ -401,11 +408,11 @@
                     // console.log(index,'Index',item_id,'reomve item_id');
                     // all_orders.splice(index,1);
                     let fillter = all_orders.filter((item) => {
-                        console.log(item.coffee_type.id, item_id,'item id reomve');
-                        if(parseInt(item.coffee_type.id) === parseInt(item_id)){
+                        if(parseInt(item.id) !== parseInt(item_id)){
                             return item;
                         }
                     });
+                    all_orders = fillter;
                     console.log(fillter,'have remvoe');
                     $(this).parent().parent().remove();
 
@@ -422,6 +429,8 @@
 
             function addRow() {
                 // var coffee_name = document.getElementById('coffee_name').value;
+                id++;
+                coffe_order.id = id;
                 coffe_order.coffee_type.id = $( "#coffee_name option:selected").val();
                 coffe_order.type.id = $( "#type").val();
                 coffe_order.type.name = $("#type option:selected").text();
@@ -437,7 +446,7 @@
                     '<td>'+ coffe_order.qty + '</td>' +
                     '<td>'+ coffe_order.sugar + '</td>' +
                     '<td>'+ coffe_order.price + '</td>' +
-                    '<td><a href="#" id="remove" data-id='+coffe_order.coffee_type.id+'><i class="fas fa-trash text-danger"></i></a></td>' +
+                    '<td><a href="#" id="remove" data-id='+coffe_order.id+'><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
                 console.log(coffe_order,'order itme');
@@ -447,6 +456,19 @@
                     console.log(item.price);
                     total = total + parseFloat(item.price);
                 });
+                coffe_order = {
+                id:0,
+                type: {id: 0,name: ''},
+                size: '',
+                qty: 0,
+                sugar: 0,
+                coffee_type: {
+                    id: 0,
+                    name:0,
+                },
+                price: 30
+
+            };
                 console.log(total,'total');
                 console.log(all_orders,'total all araay');
                 $('.total').text(total);
