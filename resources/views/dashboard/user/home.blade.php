@@ -254,22 +254,23 @@
 
 
     <!-- Modal Save -->
-    <div class="modal fade" id="modelSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modelSave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content bg-model">
                 <div class="modal-header bg-primary bg-header-model">
                     <h5 class="modal-title text-white" id="exampleModalLabel">ADD NEW ORDER</h5>
                 </div>
-                <form action="">
+                <form action="" novalidate>
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-4">
                             <label for="coffeeName" class="col-md-4 col-form-label col-form-label-sm">Coffee Name</label>
                             <div class="col-sm-8">
                                 <select class="form-select bg-input" name="coffee" id="coffee_name">
-                                    <option selected>Coffee Name...</option>
                                     @foreach ($coffee as $item)
-                                        <option value="{{ $item->id.'-'.$item->price.'-'.$item->name }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id . '-' . $item->price . '-' . $item->name }}">
+                                            {{ $item->name }}</option>
                                     @endforeach
 
                                 </select>
@@ -280,7 +281,8 @@
                             <div class="col-sm-8">
                                 <select id="type" class="form-select bg-input" name="type">
                                     @foreach ($type as $item)
-                                        <option value="{{ $item->id.'-'.$item->price.'-'.$item->name }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id . '-' . $item->price . '-' . $item->name }}">
+                                            {{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -290,8 +292,8 @@
                             <div class="col-sm-7 bg-white radio-bg">
                                 @foreach ($size as $item)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="size" id="size" value="{{ $item->id.'-'.$item->price.'-'.$item->name }}"
-                                            checked>
+                                        <input class="form-check-input" type="radio" name="size" id="size"
+                                            value="{{ $item->id . '-' . $item->price . '-' . $item->name }}" checked>
                                         <label class="form-check-label" for="large">{{ $item->name }}</label>
 
                                     </div>
@@ -301,19 +303,22 @@
                         <div class="row mb-4">
                             <label for="qty" class="col-md-4 col-form-label col-form-label-sm">Quatity</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control bg-input" id="qty" name="qty">
+                                <input type="number" class="form-control bg-input" id="qty" name="qty" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid city.
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-4">
                             <label for="sugar" class="col-md-4 col-form-label col-form-label-sm">Sugar</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control bg-input" id="sugar" name="sugar">
+                                <input type="number" class="form-control bg-input" id="sugar" name="sugar" required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light bt-order" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary bt-order" id="addRow">Save
+                        <button type="button" class="btn btn-primary bt-order" id="addRow">Add
                             Order</button>
                     </div>
                 </form>
@@ -330,10 +335,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var all_orders = [];
-            var id= 1;
+            var id = 1;
             var coffe_order = {
                 id: 0,
-                type: {id: 0,name: '', price: 0},
+                type: {
+                    id: 0,
+                    name: '',
+                    price: 0
+                },
                 size: {
                     id: 0,
                     name: '',
@@ -343,28 +352,33 @@
                 sugar: 0,
                 coffee_type: {
                     id: 0,
-                    name:0,
+                    name: 0,
                     price: 0
                 },
                 price: 0
 
             };
 
-            $('#addRow').click(function() {
+            $('#addRow').click(function(e) {
+                e.preventDefault();
                 addRow();
             });
             $('#SaveOrder').click(function() {
-                      var data={
-                        orders: all_orders,
+                if (all_orders.length == 0) {
+                    return;
+                }
+                alert("You already Save");
+                var data = {
+                    orders: all_orders,
 
-                    "_token": "{{csrf_token()}}",
-            };
-            let route = '{{url("user/storeOrder")}}'
-            $.post(route,data,function(resspone){
-                if(resspone){
-                    let my_tr = ''
-                    all_orders.forEach(i=> {
-                        my_tr +=`
+                    "_token": "{{ csrf_token() }}",
+                };
+                let route = '{{ url('user/storeOrder') }}'
+                $.post(route, data, function(resspone) {
+                    if (resspone) {
+                        let my_tr = ''
+                        all_orders.forEach(i => {
+                            my_tr += `
                             <tr>
                                 <td>${i.coffee_type.name}</td>
                                 <td>${i.type.name} </td>
@@ -375,8 +389,8 @@
                                 <td>${i.price }</td>
                             </tr >
                         `;
-                    })
-                    let contents = `
+                        })
+                        let contents = `
                         <html>
                         <header>
                         <style>
@@ -473,52 +487,54 @@
                         </html>
                     `;
 
-                    var frame1 = document.createElement('iframe');
-                    frame1.name = "frame1";
-                    frame1.style.position = "absolute";
-                    frame1.style.top = "-1000000px";
-                    document.body.appendChild(frame1);
-                    var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
-                    frameDoc.document.open();
-                    frameDoc.document.write(contents);
-                    frameDoc.document.close();
-                    setTimeout(function () {
-                        //   window.frames["frame1"].focus();
-                        window.frames["frame1"].print();
-                        document.body.removeChild(frame1);
-                        window.location.reload();
-                    }, 300);
+                        var frame1 = document.createElement('iframe');
+                        frame1.name = "frame1";
+                        frame1.style.position = "absolute";
+                        frame1.style.top = "-1000000px";
+                        document.body.appendChild(frame1);
+                        var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1
+                            .contentDocument.document ? frame1.contentDocument.document : frame1
+                            .contentDocument;
+                        frameDoc.document.open();
+                        frameDoc.document.write(contents);
+                        frameDoc.document.close();
+                        setTimeout(function() {
+                            //   window.frames["frame1"].focus();
+                            window.frames["frame1"].print();
+                            document.body.removeChild(frame1);
+                            window.location.reload();
+                        }, 300);
 
-                }
-            });
+                    }
+                });
             });
 
 
             $('tbody').on('click', '#remove', function() {
-                    var item_id = $(this).data('id');
-                    console.log(item_id)
-                    // let index = all_orders.findIndex(item => item.coffee_type.id == item_id);
-                    // console.log(index,'Index',item_id,'reomve item_id');
-                    // all_orders.splice(index,1);
-                    let fillter = all_orders.filter((item) => {
-                        if(parseInt(item.id) !== parseInt(item_id)){
-                            return item;
-                        }
-                    });
-                    all_orders = fillter;
-                    var total = 0;
-                    all_orders.forEach(item=>{
-                        console.log(item.price);
-                        total = total + parseFloat(item.price);
-                    });
-                    $('.total').text(total.toFixed(2));
-                    console.log(fillter,'have remvoe');
-                    $(this).parent().parent().remove();
+                var item_id = $(this).data('id');
+                console.log(item_id)
+                // let index = all_orders.findIndex(item => item.coffee_type.id == item_id);
+                // console.log(index,'Index',item_id,'reomve item_id');
+                // all_orders.splice(index,1);
+                let fillter = all_orders.filter((item) => {
+                    if (parseInt(item.id) !== parseInt(item_id)) {
+                        return item;
+                    }
+                });
+                all_orders = fillter;
+                var total = 0;
+                all_orders.forEach(item => {
+                    console.log(item.price);
+                    total = total + parseFloat(item.price);
+                });
+                $('.total').text(total.toFixed(2));
+                console.log(fillter, 'have remvoe');
+                $(this).parent().parent().remove();
 
 
             });
 
-               // $('tbody').on('click', '#remove', function() {
+            // $('tbody').on('click', '#remove', function() {
             //         $(this).parent().parent().remove();
             //         console.log($(this).parent().parent().children());
 
@@ -530,7 +546,7 @@
                 // var coffee_name = document.getElementById('coffee_name').value;
                 id++;
                 coffe_order.id = id;
-                let getTypeOfCoffee =  $( "#coffee_name option:selected").val().split('-');
+                let getTypeOfCoffee = $("#coffee_name option:selected").val().split('-');
                 console.log(getTypeOfCoffee, "get prince");
 
                 coffe_order.coffee_type.id = getTypeOfCoffee[0];
@@ -539,45 +555,57 @@
                 // get Coffe type
                 // type
 
-                let cofeeType =  $( "#type").val().split('-');
-                coffe_order.type.id     = cofeeType[0];
-                coffe_order.type.price   = cofeeType[1];
-                coffe_order.type.name  = cofeeType[2];
+                let cofeeType = $("#type").val().split('-');
+                coffe_order.type.id = cofeeType[0];
+                coffe_order.type.price = cofeeType[1];
+                coffe_order.type.name = cofeeType[2];
                 console.log(cofeeType, 'Coffe Type');
                 // size
-                let cofeeSize =  $( "#size").val().split('-');
+                let cofeeSize = $("#size").val().split('-');
                 console.log(cofeeSize, 'Cofffe Size');
-                coffe_order.size.id     = cofeeSize[0];
-                coffe_order.size.price   = cofeeSize[1];
-                coffe_order.size.name  = cofeeSize[2];
+                coffe_order.size.id = cofeeSize[0];
+                coffe_order.size.price = cofeeSize[1];
+                coffe_order.size.name = cofeeSize[2];
 
-                coffe_order.qty =   $( "#qty").val();
-                coffe_order.sugar = $( "#sugar").val();
-                coffe_order.price =  (parseFloat(coffe_order.qty)*(parseFloat(coffe_order.coffee_type.price) + parseFloat(coffe_order.type.price) + parseFloat(coffe_order.size.price))).toFixed(2);
 
-                console.log("total price",  coffe_order.price);
+                coffe_order.qty = $("#qty").val();
+                coffe_order.sugar = $("#sugar").val();
+                coffe_order.price = (parseFloat(coffe_order.qty) * (parseFloat(coffe_order.coffee_type.price) +
+                    parseFloat(coffe_order.type.price) + parseFloat(coffe_order.size.price))).toFixed(2);
 
+                console.log("total price", coffe_order.price);
+
+                if (coffe_order.qty == '' || coffe_order.sugar == '') {
+                    alert("Pleas input all fields");
+                    return;
+                }
                 var tr = '<tr>' +
-                    '<td>' + coffe_order.coffee_type.name  + '</td>' +
-                    '<td>' + coffe_order.type.name  + '</td>' +
-                    '<td>' + coffe_order.size.name  + '</td>' +
-                    '<td>'+ coffe_order.qty + '</td>' +
-                    '<td>'+ coffe_order.sugar + '</td>' +
-                    '<td>'+ ((parseFloat(coffe_order.coffee_type.price) + parseFloat(coffe_order.type.price) + parseFloat(coffe_order.size.price))).toFixed(2) + '</td>' +
-                    '<td>'+ coffe_order.price + '</td>' +
-                    '<td><a href="#" id="remove" data-id='+coffe_order.id+'><i class="fas fa-trash text-danger"></i></a></td>' +
+                    '<td>' + coffe_order.coffee_type.name + '</td>' +
+                    '<td>' + coffe_order.type.name + '</td>' +
+                    '<td>' + coffe_order.size.name + '</td>' +
+                    '<td>' + coffe_order.qty + '</td>' +
+                    '<td>' + coffe_order.sugar + '</td>' +
+                    '<td>' + ((parseFloat(coffe_order.coffee_type.price) + parseFloat(coffe_order.type.price) +
+                        parseFloat(coffe_order.size.price))).toFixed(2) + '</td>' +
+                    '<td>' + coffe_order.price + '</td>' +
+                    '<td><a href="#" id="remove" data-id=' + coffe_order.id +
+                    '><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
-                console.log(coffe_order,'order itme');
+                console.log(coffe_order, 'order itme');
                 all_orders.push(coffe_order)
                 var total = 0;
-                all_orders.forEach(item=>{
+                all_orders.forEach(item => {
                     console.log(item.price);
                     total = total + parseFloat(item.price);
                 });
                 coffe_order = {
                     id: 0,
-                    type: {id: 0,name: '', price: 0},
+                    type: {
+                        id: 0,
+                        name: '',
+                        price: 0
+                    },
                     size: {
                         id: 0,
                         name: '',
@@ -587,13 +615,13 @@
                     sugar: 0,
                     coffee_type: {
                         id: 0,
-                        name:0,
+                        name: 0,
                         price: 0
                     },
                     price: 30
                 };
-                console.log(total,'total');
-                console.log(all_orders,'total all araay');
+                console.log(total, 'total');
+                console.log(all_orders, 'total all araay');
                 $('.total').text(total.toFixed(2));
             }
         });
