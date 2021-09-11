@@ -50,8 +50,8 @@ class OrderController extends Controller
             $order->size_id = (int) $item['size']['id'];
             $order->sugar = $item['sugar'];
             $order->quantity = $item['qty'];
-            $order->price = $subPrice;
-            $order->total = $subPrice *  floatval($item['qty']);
+            $order->price = floatval($item['size']['price'])+ floatval($item['coffee_type']['price'])+floatval($item['type']['price']);
+            $order->total = $subPrice ;
             $save = $order->save();
 
         }
