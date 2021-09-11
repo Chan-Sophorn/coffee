@@ -42,12 +42,12 @@ class OrderController extends Controller
 
             $coffee = CoffeeName::findOrFail( $item['coffee_type']['id']);
             $type = CoffeeType::findOrFail($item['type']['id']);
-            $size = Cup::findOrFail($item['size']);
+            $size = Cup::findOrFail($item['size']['id']);
 
             $subPrice =floatval($item['price']) ;
 
             $order->type_id = (int) $item['type']['id'];
-            $order->size_id = (int) $item['size'];
+            $order->size_id = (int) $item['size']['id'];
             $order->sugar = $item['sugar'];
             $order->quantity = $item['qty'];
             $order->price = $subPrice;

@@ -173,6 +173,7 @@
                                 <th>Qty</th>
                                 <th>Sugar</th>
                                 <th>Price</th>
+                                <th>Total</th>
                                 <th><a href="#" id="add_row"><i class="fas fa-plus text-white"></i></a></th>
                             </tr>
                         </thead>
@@ -237,6 +238,7 @@
                                 <td style="border: none"></td>
                                 <td style="border: none"></td>
                                 <td style="border: none"></td>
+                                <td style="border: none"></td>
                                 <th>Total</th>
                                 <td> <span class="total"></span></td>
                                 <td><a href="#" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
@@ -267,7 +269,7 @@
                                 <select class="form-select bg-input" name="coffee" id="coffee_name">
                                     <option selected>Coffee Name...</option>
                                     @foreach ($coffee as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id.'-'.$item->price.'-'.$item->name }}">{{ $item->name }}</option>
                                     @endforeach
 
                                 </select>
@@ -278,7 +280,7 @@
                             <div class="col-sm-8">
                                 <select id="type" class="form-select bg-input" name="type">
                                     @foreach ($type as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id.'-'.$item->price.'-'.$item->name }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -288,7 +290,7 @@
                             <div class="col-sm-7 bg-white radio-bg">
                                 @foreach ($size as $item)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="size" id="size" value="{{ $item->id }}"
+                                        <input class="form-check-input" type="radio" name="size" id="size" value="{{ $item->id.'-'.$item->price.'-'.$item->name }}"
                                             checked>
                                         <label class="form-check-label" for="large">{{ $item->name }}</label>
 
@@ -331,15 +333,20 @@
             var id= 1;
             var coffe_order = {
                 id: 0,
-                type: {id: 0,name: ''},
-                size: '',
+                type: {id: 0,name: '', price: 0},
+                size: {
+                    id: 0,
+                    name: '',
+                    price: ''
+                },
                 qty: 0,
                 sugar: 0,
                 coffee_type: {
                     id: 0,
                     name:0,
+                    price: 0
                 },
-                price: 30
+                price: 0
 
             };
 
@@ -361,9 +368,10 @@
                             <tr>
                                 <td>${i.coffee_type.name}</td>
                                 <td>${i.type.name} </td>
-                                <td>${i.size} </td>
+                                <td>${i.size.name} </td>
                                 <td>${i.qty }</td>
                                 <td>${i.sugar} </td>
+                                <td>${((parseFloat(i.coffee_type.price) + parseFloat(i.type.price) + parseFloat(i.size.price))).toFixed(2)} </td>
                                 <td>${i.price }</td>
                             </tr >
                         `;
@@ -371,6 +379,91 @@
                     let contents = `
                         <html>
                         <header>
+                        <style>
+                            * {
+                            -webkit-print-color-adjust: true;
+                            -webkit-print-color-adjust: exact;
+                            }
+                            @page {
+                                size: A2;
+                            }
+
+                            body {
+                                -webkit-print-color-adjust: exact;
+                                font-family: 'Niradei-Regular' !important;
+                                print-color-adjust: exact;
+                                background-color: red;
+                            }
+                            ul,li {
+                                list-style-type: inherit !important;
+                                margin: 0 0 0 15px;
+                                padding: 0 !important;
+                            }
+                            ul li>ul{
+                                list-style-type: circle !important;
+                                margin: 0 0 0 15px;
+                                padding: 0 !important;
+                            }
+                            table,tr,td{
+                                border-collapse: collapse !important;
+                            }
+                            table{
+                                width:100%;
+                            }
+                            @media print {
+                                html, body {
+                                    font-family: 'Niradei-Regular'  !important;
+                                    -webkit-print-color-adjust: exact !important;
+                                    print-color-adjust: exact;
+                                },
+                                .pagebreak {
+                                    clear: both;
+                                    margin-top: 30mm;
+                                    page-break-before: always !important;
+                                    page-break-after: always !important;
+                                }
+                            }
+                            table th{
+                                padding: 8px 6px !important ;
+                                border: 1px solid  #000;
+                                border-collapse: collapse;
+                            }
+                            table{
+                                width: 100%;
+                                margin-top: 8px;
+                                margin-bottom: 8px;
+                                border-collapse: collapse;
+                            }
+                            .items tr td{
+                                border: 0.7px solid #000;
+                                padding: 6px;
+                                height: 32px;
+                            }
+                            .items_tb_border tr td{
+                                border: 1px solid #000;
+                                padding: 6px;
+                                height: 32px;
+                            }
+                            .flex{
+                                display: flex;
+                            }
+                            .tleft{
+                                text-align: left;
+                            }
+                            .tright{
+                                text-align: right;
+                            }
+                            .text-bold{
+                                font-weight: bold;
+                            }
+                            .text-center{
+                                text-align: center;
+                            }
+                            p{
+                                line-height: 15px;
+                                font-family: 'Niradei-Regular' !important;
+                            }
+                        </style>
                         </header>
                         <body>
                             <table>
@@ -413,6 +506,12 @@
                         }
                     });
                     all_orders = fillter;
+                    var total = 0;
+                    all_orders.forEach(item=>{
+                        console.log(item.price);
+                        total = total + parseFloat(item.price);
+                    });
+                    $('.total').text(total.toFixed(2));
                     console.log(fillter,'have remvoe');
                     $(this).parent().parent().remove();
 
@@ -431,20 +530,40 @@
                 // var coffee_name = document.getElementById('coffee_name').value;
                 id++;
                 coffe_order.id = id;
-                coffe_order.coffee_type.id = $( "#coffee_name option:selected").val();
-                coffe_order.type.id = $( "#type").val();
-                coffe_order.type.name = $("#type option:selected").text();
-                coffe_order.qty = $( "#qty").val();
+                let getTypeOfCoffee =  $( "#coffee_name option:selected").val().split('-');
+                console.log(getTypeOfCoffee, "get prince");
+
+                coffe_order.coffee_type.id = getTypeOfCoffee[0];
+                coffe_order.coffee_type.price = getTypeOfCoffee[1];
+                coffe_order.coffee_type.name = getTypeOfCoffee[2];
+                // get Coffe type
+                // type
+
+                let cofeeType =  $( "#type").val().split('-');
+                coffe_order.type.id     = cofeeType[0];
+                coffe_order.type.price   = cofeeType[1];
+                coffe_order.type.name  = cofeeType[2];
+                console.log(cofeeType, 'Coffe Type');
+                // size
+                let cofeeSize =  $( "#size").val().split('-');
+                console.log(cofeeSize, 'Cofffe Size');
+                coffe_order.size.id     = cofeeSize[0];
+                coffe_order.size.price   = cofeeSize[1];
+                coffe_order.size.name  = cofeeSize[2];
+
+                coffe_order.qty =   $( "#qty").val();
                 coffe_order.sugar = $( "#sugar").val();
-                coffe_order.size = $( "#size").val();
-                coffe_order.price = 20;
-                coffe_order.coffee_type.name = $("#coffee_name option:selected").text()
+                coffe_order.price =  (parseFloat(coffe_order.qty)*(parseFloat(coffe_order.coffee_type.price) + parseFloat(coffe_order.type.price) + parseFloat(coffe_order.size.price))).toFixed(2);
+
+                console.log("total price",  coffe_order.price);
+
                 var tr = '<tr>' +
                     '<td>' + coffe_order.coffee_type.name  + '</td>' +
                     '<td>' + coffe_order.type.name  + '</td>' +
-                    '<td>' + coffe_order.size  + '</td>' +
+                    '<td>' + coffe_order.size.name  + '</td>' +
                     '<td>'+ coffe_order.qty + '</td>' +
                     '<td>'+ coffe_order.sugar + '</td>' +
+                    '<td>'+ ((parseFloat(coffe_order.coffee_type.price) + parseFloat(coffe_order.type.price) + parseFloat(coffe_order.size.price))).toFixed(2) + '</td>' +
                     '<td>'+ coffe_order.price + '</td>' +
                     '<td><a href="#" id="remove" data-id='+coffe_order.id+'><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
@@ -457,24 +576,25 @@
                     total = total + parseFloat(item.price);
                 });
                 coffe_order = {
-                id:0,
-                type: {id: 0,name: ''},
-                size: '',
-                qty: 0,
-                sugar: 0,
-                coffee_type: {
                     id: 0,
-                    name:0,
-                },
-                price: 30
-
-            };
+                    type: {id: 0,name: '', price: 0},
+                    size: {
+                        id: 0,
+                        name: '',
+                        price: ''
+                    },
+                    qty: 0,
+                    sugar: 0,
+                    coffee_type: {
+                        id: 0,
+                        name:0,
+                        price: 0
+                    },
+                    price: 30
+                };
                 console.log(total,'total');
                 console.log(all_orders,'total all araay');
-                $('.total').text(total);
-
-
-
+                $('.total').text(total.toFixed(2));
             }
         });
     </script>
