@@ -81,6 +81,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
          Route::get('/coffeenameread',[CoffeeNameController::class, 'read'])->name('coffeenameread');
          Route::resource('/coffeename',CoffeeNameController::class);
+         Route::view('/stock', 'dashboard.admin.stocks.index')->name('stock');
     });
 
 
