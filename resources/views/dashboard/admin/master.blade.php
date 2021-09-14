@@ -22,11 +22,11 @@
 
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary text-white">
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=""><i
+                class="fas fa-bars text-white"></i></button>
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="">Coffee System</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars text-white"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-white">
             {{-- <div class="input-group text-white">
@@ -94,7 +94,8 @@
                                         <a class="nav-link text-white" href="{{ route('admin.read') }}">Cup Size</a>
                                         <a class="nav-link text-white" href="{{ route('admin.readcoftype') }}">Coffee
                                             Type</a>
-                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.index') }}">Coffee
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.coffeename.index') }}">Coffee
                                             Name</a>
                                     </nav>
                                 </div>
@@ -113,7 +114,8 @@
                                         <a class="nav-link text-white" href="{{ route('admin.cup') }}">Cup Size</a>
                                         <a class="nav-link text-white" href="{{ route('admin.coffeetype') }}">Coffee
                                             Type</a>
-                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.create') }}">Coffee
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.coffeename.create') }}">Coffee
                                             Name</a>
                                     </nav>
                                 </div>
