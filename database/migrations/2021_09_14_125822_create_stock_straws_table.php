@@ -16,12 +16,8 @@ class CreateStockStrawsTable extends Migration
         Schema::create('stock_straws', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-
-            $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-
             $table->integer('quantity');
-            $table->integer('total_cup');
+            $table->integer('total_straw');
             $table->float('price',5,2);
             $table->float('total_price');
             $table->timestamp('date')->useCurrent();

@@ -22,11 +22,11 @@
 
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary text-white">
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=""><i
+                class="fas fa-bars text-white"></i></button>
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="">Coffee System</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars text-white"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-white">
             {{-- <div class="input-group text-white">
@@ -94,7 +94,8 @@
                                         <a class="nav-link text-white" href="{{ route('admin.read') }}">Cup Size</a>
                                         <a class="nav-link text-white" href="{{ route('admin.readcoftype') }}">Coffee
                                             Type</a>
-                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.index') }}">Coffee
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.coffeename.index') }}">Coffee
                                             Name</a>
                                     </nav>
                                 </div>
@@ -113,7 +114,8 @@
                                         <a class="nav-link text-white" href="{{ route('admin.cup') }}">Cup Size</a>
                                         <a class="nav-link text-white" href="{{ route('admin.coffeetype') }}">Coffee
                                             Type</a>
-                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.create') }}">Coffee
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.coffeename.create') }}">Coffee
                                             Name</a>
                                     </nav>
                                 </div>
@@ -122,14 +124,51 @@
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-columns text-white"></i></div>
-                            Layouts
+                            Stocks
                             <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse text-white" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-white" href="">Inventory</a>
-                                <a class="nav-link text-white" href="">Purchase Order</a>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="stockCup">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseStockCup" aria-expanded="false"
+                                    aria-controls="collapseStockCup">
+                                    Stock Cup
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseStockCup" aria-labelledby="headingOne"
+                                    data-bs-parent="#stockCup">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockCup.index') }}">List Cup</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockCup.create') }}">Add
+                                            Cup</a>
+
+                                    </nav>
+                                </div>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="stockStraws">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseStockStraws" aria-expanded="false"
+                                    aria-controls="collapseStockStraws">
+                                    Stock Straws
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseStockStraws" aria-labelledby="headingOne"
+                                    data-bs-parent="#stockStraws">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockstraw.index') }}">List
+                                            Straw</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockstraw.create') }}">Add
+                                            Straw</a>
+
+                                    </nav>
+                                </div>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
@@ -161,15 +200,7 @@
                                 </div>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
+
                     </div>
                 </div>
 
