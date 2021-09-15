@@ -80,7 +80,9 @@ class stockStrawsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $straw = StockStraw::findOrFail($id);
+
+          return view('dashboard.admin.stockstraws.update', compact('straw'));
     }
 
     /**
@@ -92,7 +94,28 @@ class stockStrawsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'qty'=>'required|numeric',
+            'price'=>'required|numeric|between:0,999',
+
+        ]);
+
+        $straws = StockStraw::findOrFail($id);
+        $straws->name = $request->name;
+        $straws->quantity = $request->qty;
+        $straws->total_straw = $request->qty * 100;
+        $straws->price = $request->price;
+        $total = $request->price * $request->qty;
+        $straws->total_price = $total;
+        $save = $straws->save();
+        if ($save) {
+            Toastr::success('Save Successfully :)', 'Success');
+            return redirect()->route('admin.stockstraw.index');
+        }else {
+            Toastr::error('Please try again :(', 'Error');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -103,6 +126,11 @@ class stockStrawsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = StockStraw::findOrFail($id)->delete();
+        if ($delete) {
+            Toastr::success('Delete Successfully :)', 'Success');
+            return redirect()->route('admin.stockstraw.index');
+        }
+
     }
 }

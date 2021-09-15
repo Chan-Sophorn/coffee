@@ -11,7 +11,7 @@
                     <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Name</th>
-                        <th scope="col">QTy</th>
+                        <th scope="col">Qty</th>
                         <th scope="col">Price</th>
                         <th scope="col">Total_Straw</th>
                         <th scope="col">Total_Price</th>
