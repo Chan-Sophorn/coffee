@@ -16,10 +16,6 @@ class CreateStockCupsTable extends Migration
         Schema::create('stock_cups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-
-            $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-
             $table->integer('quantity');
             $table->integer('total_cup');
             $table->float('price',5,2);

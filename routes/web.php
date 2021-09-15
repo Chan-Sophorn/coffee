@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\CupController;
 use App\Http\Controllers\CoffeeNameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockCupController;
+use App\Http\Controllers\stockStrawsController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\UserController;
 use App\Models\CoffeeType;
@@ -82,6 +84,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::get('/coffeenameread',[CoffeeNameController::class, 'read'])->name('coffeenameread');
          Route::resource('/coffeename',CoffeeNameController::class);
          Route::view('/stock', 'dashboard.admin.stocks.index')->name('stock');
+         Route::resource('/stockstraw', stockStrawsController::class);
+         Route::resource('/stockCup', StockCupController::class);
     });
 
 

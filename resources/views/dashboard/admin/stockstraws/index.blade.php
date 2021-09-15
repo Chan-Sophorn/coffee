@@ -5,25 +5,33 @@
 @section('content')
     <div class="container mt-5">
         <div class="row" style="padding-left: 70px; padding-right: 70px;">
-            <h4 class="bg-primary text-white p-2">Coffee Type</h4>
+            <h4 class="bg-primary text-white p-2">Stock Straws</h4>
             <table class="table col-md-9 m-auto" id="table">
                 <thead>
                     <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Name</th>
+                        <th scope="col">QTy</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Total_Straw</th>
+                        <th scope="col">Total_Price</th>
+                        <th scope="col">Date</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($coftype->count() > 0)
-                        @foreach ($coftype as $index => $item)
+                    @if ($stockStraw->count() > 0)
+                        @foreach ($stockStraw as $index => $item)
                             <tr>
                                 <td scope="row">{{ $index + 1 }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->price . "$" }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>{{ "$" . ' ' . $item->price }}</td>
+                                <td>{{ $item->total_straw }}</td>
+                                <td>{{ "$" . ' ' . $item->total_price }}</td>
+                                <td>{{ $item->date }}</td>
                                 <td>
-                                    <a href="{{ route('admin.editcoftype', $item->id) }}"><i
+                                    <a href="{{ route('admin.stockstraw.edit', $item->id) }}"><i
                                             class="far fa-edit"></i></a>
 
                                     <button type="button" class="btn btn-danger" style="border: none; background: none"
@@ -31,7 +39,7 @@
                                         <i class="fas fa-trash-alt text-danger"></i>
                                     </button>
                                     <form id="delete-from-{{ $item->id }}"
-                                        action="{{ route('admin.deletecoftype', $item->id) }}" method="POST"
+                                        action="{{ route('admin.stockstraw.destroy', $item->id) }}" method="POST"
                                         style="display: none;">
                                         @csrf
                                         @method('DELETE')
