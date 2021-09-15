@@ -61,11 +61,14 @@ Route::prefix('admin')->name('admin.')->group(function(){
     });
 
     Route::middleware(['auth:admin'])->group(function(){
-         Route::view('/home', 'dashboard.admin.home')->name('home');
+        Route::get('/home',[AdminController::class,'report'])->name('home');
+         Route::delete('/del/{id}',[AdminController::class,'del'])->name('del');
+        //  Route::view('/home', 'dashboard.admin.home')->name('home');
          Route::resource('/product', ProductController::class);
 //         Route::view('/register', 'dashboard.admin.register')->name('register');
 //         Route::post('/create', [AdminController::class, 'create'])->name('create');
         Route::get('/listuser',[AdminController::class,'read'])->name('listuser');
+        Route::post('/changeStatus',[AdminController::class,'changeStatus'])->name('changeStatus');
 
          Route::get('/read', [CupController::class, 'read'])->name('read');
          Route::get('/cup', [CupController::class, 'index'])->name('cup');

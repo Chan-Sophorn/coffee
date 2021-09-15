@@ -9,6 +9,19 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name_id',
+        'type_id',
+        'size_id',
+        'sugar',
+        'quantity',
+        'price',
+        'total',
+        'date',
+    
+    ];
+
+
     public function CoffeeName(){
         return $this->belongsTo(CoffeeName::class, 'name_id');
     }

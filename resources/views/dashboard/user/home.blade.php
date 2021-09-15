@@ -174,7 +174,7 @@
                                 <th>Sugar</th>
                                 <th>Price</th>
                                 <th>Total</th>
-                                <th><a href="#" id="add_row"><i class="fas fa-plus text-white"></i></a></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="tbody" style="background: rgb(224, 222, 222)">
@@ -242,7 +242,7 @@
                                 <th>Total</th>
                                 <td> <span class="total"></span></td>
                                 <td><a href="#" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
-                                        Saves</a></td>
+                                        Saves/Print</a></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -389,7 +389,16 @@
                                 <td>${i.price }</td>
                             </tr >
                         `;
-                        })
+                        });
+                        var total = 0;
+                        var khmer = 0;
+                        let my_total = ''
+                        all_orders.forEach(item => {
+                            console.log(item.price);
+                            total = total + parseFloat(item.price);
+                            khmer = total * 4100;
+                        });
+                        // $('.total').text(total.toFixed(2));
                         let contents = `
                         <html>
                         <header>
@@ -420,6 +429,7 @@
                             }
                             table,tr,td{
                                 border-collapse: collapse !important;
+                                text-align: center!important;
                             }
                             table{
                                 width:100%;
@@ -437,10 +447,11 @@
                                     page-break-after: always !important;
                                 }
                             }
-                            table th{
+                            table th, tbody{
                                 padding: 8px 6px !important ;
-                                border: 1px solid  #000;
+                                border-bottom: 1px solid  #000;
                                 border-collapse: collapse;
+                                margin-bottom: 8px;
                             }
                             table{
                                 width: 100%;
@@ -481,7 +492,58 @@
                         </header>
                         <body>
                             <table>
-                               ${my_tr}
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                                <th>Sugar</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                
+                            </tr>
+                            
+                            </thead>
+                            <tbody>
+                                ${my_tr}
+                            </tbody>
+                               
+                            <tfoot>
+                            <tr>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <th>Totals</th>
+                                
+            
+                            </tr>
+                            <tr>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"> <span class="currency">USD</span></td>
+                                <td>                                    
+                                    <span class="amont">${ total.toFixed(2)}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"><span class="currency">KH</span></td>
+                                <td>                                    
+                                    <span class="amont">${ khmer.toFixed(2)}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
                             </table>
                         </body>
                         </html>
@@ -576,7 +638,7 @@
                 console.log("total price", coffe_order.price);
 
                 if (coffe_order.qty == '' || coffe_order.sugar == '') {
-                    alert("Pleas input all fields");
+                    alert("Please input all fields");
                     return;
                 }
                 var tr = '<tr>' +
@@ -592,6 +654,7 @@
                     '><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
+                alert("Your data already add to list.");
                 console.log(coffe_order, 'order itme');
                 all_orders.push(coffe_order)
                 var total = 0;
