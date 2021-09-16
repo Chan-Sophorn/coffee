@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\CoffeeName;
 use App\Models\Order;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,13 @@ class AdminController extends Controller
         $reads = Admin::all();
         return view('dashboard.admin.read', compact('reads'));
     }
+
+     public function readUser(){
+    
+        $user = User::all();
+        return view('dashboard.user.read', compact('user'));
+    }
+
 
     public function changeStatus(Request $request){
        

@@ -26,7 +26,7 @@
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=""><i
                 class="fas fa-bars text-white"></i></button>
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="">Coffee System</a>
+        <a class="navbar-brand ps-3" href="{{ route('admin.home') }}">Coffee System</a>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-white">
             {{-- <div class="input-group text-white">
@@ -64,13 +64,13 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark bg-primary " id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="{{ route('admin.home') }}">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading text-white">Activity</div>
 
-                        <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                        <a class="nav-link collapsed text-white" href="" data-bs-toggle="collapse"
                             data-bs-target="#collapsePagesProduct" aria-expanded="false"
                             aria-controls="collapsePagesProduct">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
@@ -179,26 +179,19 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
-                                    </div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="{{ route('admin.listuser') }}">List
-                                            User Admin</a>
-                                        <a class="nav-link text-white" href="{{ route('user.register') }}">List
-                                            User Staff</a>
-                                        {{-- <a class="nav-link text-white" href="{{ route('password.request') }}">Forget
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-white" href="{{ route('admin.listuseradmin') }}">List
+                                    User Admin</a>
+                                <a class="nav-link text-white" href="{{ route('admin.listuser') }}">List
+                                    User Staff</a>
+                                <a class="nav-link text-white" href="{{ route('admin.register') }}">Add
+                                    User Admin</a>
+                                <a class="nav-link text-white" href="{{ route('user.register') }}">Add
+                                    User Staff</a>
+                                {{-- <a class="nav-link text-white" href="{{ route('password.request') }}">Forget
                                             Password</a> --}}
-                                    </nav>
-                                </div>
                             </nav>
+
                         </div>
 
                     </div>

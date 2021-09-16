@@ -57,7 +57,6 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('/create', [AdminController::class, 'create'])->name('create');
 
 
-
     });
 
     Route::middleware(['auth:admin'])->group(function(){
@@ -65,9 +64,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::delete('/del/{id}',[AdminController::class,'del'])->name('del');
         //  Route::view('/home', 'dashboard.admin.home')->name('home');
          Route::resource('/product', ProductController::class);
-//         Route::view('/register', 'dashboard.admin.register')->name('register');
+        Route::view('/register', 'dashboard.admin.register')->name('register');
+        Route::post('/create', [AdminController::class, 'create'])->name('create');
+        Route::get('/listuser',[AdminController::class,'readUser'])->name('listuser');
 //         Route::post('/create', [AdminController::class, 'create'])->name('create');
-        Route::get('/listuser',[AdminController::class,'read'])->name('listuser');
+        Route::get('/listuseradmin',[AdminController::class,'read'])->name('listuseradmin');
         Route::post('/changeStatus',[AdminController::class,'changeStatus'])->name('changeStatus');
 
          Route::get('/read', [CupController::class, 'read'])->name('read');
@@ -89,6 +90,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::view('/stock', 'dashboard.admin.stocks.index')->name('stock');
          Route::resource('/stockstraw', stockStrawsController::class);
          Route::resource('/stockCup', StockCupController::class);
+
     });
 
 
