@@ -449,6 +449,7 @@
                             }
                             table th, tbody{
                                 padding: 8px 6px !important ;
+                                border-top: 1px solid  #000;
                                 border-bottom: 1px solid  #000;
                                 border-collapse: collapse;
                                 margin-bottom: 8px;
@@ -491,6 +492,21 @@
                         </style>
                         </header>
                         <body>
+                        <div class="col-lg-12">	
+                        <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="100px" height="100px"
+                            style="display: block; margin: 0 auto;">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <label>#177S, Chom Ka Doung Street(St,217)</label></br>
+                            <label>Phnom Penh, Kingdom of Cambodia</label></br>
+                            <label>+855 96 928 8830</label></br></br>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <label class="h3">COFFEE TEAM WELCOME</label></br>	
+                        </div></br>
+                        <div class="col-lg-12 text-center">
+                            <label class="h4">RECEIPT</label></br>	
+                        </div>
                             <table>
                             <thead>
                             <tr>
@@ -544,7 +560,15 @@
                                 </td>
                             </tr>
                         </tfoot>
-                            </table>
+                            </table></br>
+                            <div class="col-lg-10" style="height: 1px; border: 1px solid rgb(58, 57, 57);margin: 0 auto;">
+                            </div></br>
+                            <div class="col-lg-12 text-center">
+                                    <label class="h5">Thank You!</label></br>	
+                                    <label class="h5">We would love welcome you back soon!</label></br>	
+                                </div></br>
+                                <div class="col-lg-9" style="height: 1px; border: 1px solid rgb(58, 57, 57);margin: 0 auto;">
+                            </div></br>
                         </body>
                         </html>
                     `;
