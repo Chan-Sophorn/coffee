@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class StockStraw extends Model
 {
+     protected $fillable = [
+        'name',
+        'quantity',
+        'total_straw',
+        'price',
+        'total_price',
+        'date',
+    
+    ];
     use HasFactory;
 }

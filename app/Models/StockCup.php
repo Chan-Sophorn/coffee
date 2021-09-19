@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class StockCup extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'quantity',
+        'total_cup',
+        'price',
+        'total_price',
+        'date',
+
+    ];
 }

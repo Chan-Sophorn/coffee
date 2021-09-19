@@ -37,6 +37,7 @@ class StockCupController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
          $request->validate([
             'name'=>'required',
             'qty'=>'required|numeric',
@@ -80,7 +81,9 @@ class StockCupController extends Controller
      */
     public function edit($id)
     {
-        //
+         $cups = StockCup::findOrFail($id);
+
+          return view('dashboard.admin.stockCup.update', compact('cups'));
     }
 
     /**
@@ -92,7 +95,29 @@ class StockCupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
+         $request->validate([
+            'name'=>'required',
+            'qty'=>'required|numeric',
+            'price'=>'required|numeric|between:0,999',
+
+        ]);
+
+        $cup = StockCup::findOrFail($id);
+        $cup->name = $request->name;
+        $cup->quantity = $request->qty;
+        $cup->total_cup = $request->qty * 100;
+        $cup->price = $request->price;
+        $total = $request->price * $request->qty;
+        $cup->total_price = $total;
+        $save = $cup->save();
+        if ($save) {
+            Toastr::success('Save Successfully :)', 'Success');
+            return redirect()->route('admin.stockCup.index');
+        }else {
+            Toastr::error('Please try again :(', 'Error');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -103,6 +128,8 @@ class StockCupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        StockCup::findOrFail($id)->delete();
+        Toastr::success('Delete Successful :)', 'Success');
+        return redirect()->back();
     }
 }
