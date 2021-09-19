@@ -18,24 +18,27 @@
                 @method('put')
                 <div class="mb-3 col-9">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ $coftype->name }}">
-                    <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+                    <select class="form-select bg-input" name="name" id="name">
+                        <option value="small" {{ $coftype->name === 'Ice' ? 'Selected' : '' }}>Ice</option>
+                        <option value="medium" {{ $coftype->name === 'Frappe' ? 'Selected' : '' }}>Frappe</option>
+                        <option value="large" {{ $coftype->name === 'Hot' ? 'Selected' : '' }}>Hot</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-9">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="price" value="{{ $coftype->price }}">
+                    <span class="text-danger">@error('price'){{ $message }}@enderror</span>
                     </div>
                     <div class="mb-3 col-9">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="text" class="form-control" id="price" name="price" value="{{ $coftype->price }}">
-                        <span class="text-danger">@error('price'){{ $message }}@enderror</span>
-                        </div>
-                        <div class="mb-3 col-9">
-                            <a class="btn mt-3" href="{{ route('admin.readcoftype') }}">
-                                <i class="fas fa-arrow-left"></i>
-                                <span>BACK</span>
-                            </a>
+                        <a class="btn mt-3" href="{{ route('admin.readcoftype') }}">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>BACK</span>
+                        </a>
 
-                            <button type="submit" name="save" class="btn btn-primary mt-3 float-end">Save</button>
-                        </div>
+                        <button type="submit" name="save" class="btn btn-primary mt-3 float-end">Save</button>
+                    </div>
 
-                    </form>
-                </div>
+                </form>
             </div>
-        @endsection
+        </div>
+    @endsection

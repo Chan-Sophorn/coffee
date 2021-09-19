@@ -241,7 +241,7 @@
                                 <td style="border: none"></td>
                                 <th>Total</th>
                                 <td> <span class="total"></span></td>
-                                <td><a href="#" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
+                                <td><a href="" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
                                         Saves/Print</a></td>
                             </tr>
                         </tfoot>
@@ -261,7 +261,7 @@
                 <div class="modal-header bg-primary bg-header-model">
                     <h5 class="modal-title text-white" id="exampleModalLabel">ADD NEW ORDER</h5>
                 </div>
-                <form action="" novalidate>
+                <form action="" novalidate autocomplete="off">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-4">
@@ -294,7 +294,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="size" id="size"
                                             value="{{ $item->id . '-' . $item->price . '-' . $item->name }}" checked>
-                                        <label class="form-check-label" for="large">{{ $item->name }}</label>
+                                        <label class="form-check-label" for="size">{{ $item->name }}</label>
 
                                     </div>
                                 @endforeach
@@ -384,7 +384,7 @@
                                 <td>${i.type.name} </td>
                                 <td>${i.size.name} </td>
                                 <td>${i.qty }</td>
-                                <td>${i.sugar} </td>
+                                <td>${i.sugar} % </td>
                                 <td>${((parseFloat(i.coffee_type.price) + parseFloat(i.type.price) + parseFloat(i.size.price))).toFixed(2)} </td>
                                 <td>${i.price }</td>
                             </tr >
@@ -493,7 +493,7 @@
                         </header>
                         <body>
                         <div class="col-lg-12">	
-                        <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="100px" height="100px"
+                        <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="150px" height="150px"
                             style="display: block; margin: 0 auto;">
                         </div>
                         <div class="col-lg-12 text-center">
@@ -647,7 +647,7 @@
                 coffe_order.type.name = cofeeType[2];
                 console.log(cofeeType, 'Coffe Type');
                 // size
-                let cofeeSize = $("#size").val().split('-');
+                let cofeeSize = $("#size:checked").val().split('-');
                 console.log(cofeeSize, 'Cofffe Size');
                 coffe_order.size.id = cofeeSize[0];
                 coffe_order.size.price = cofeeSize[1];
