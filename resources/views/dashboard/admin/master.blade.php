@@ -26,7 +26,7 @@
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=""><i
                 class="fas fa-bars text-white"></i></button>
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{ route('admin.home') }}">Coffee System</a>
+        <a class="navbar-brand ps-3" href="{{ route('admin.home') }}">Team Coffee</a>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-white">
             {{-- <div class="input-group text-white">
@@ -69,7 +69,13 @@
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading text-white">Activity</div>
-
+                        {{-- <a class="nav-link text-white" href="{{ route('admin.home') }}">Report</a> --}}
+                        <a class="nav-link collapsed text-white" href="{{ route('admin.home') }}">
+                            <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
+                            </div>
+                            Report
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
+                        </a>
                         <a class="nav-link collapsed text-white" href="" data-bs-toggle="collapse"
                             data-bs-target="#collapsePagesProduct" aria-expanded="false"
                             aria-controls="collapsePagesProduct">
@@ -206,12 +212,12 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Coffee System 2021</div>
-                        <div>
+                        <div class="text-muted">Copyright &copy; Team Coffee 2021</div>
+                        {{-- <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
                             <a href="#">Terms &amp; Conditions</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </footer>
