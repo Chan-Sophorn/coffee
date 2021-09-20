@@ -22,11 +22,11 @@
 
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary text-white">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="">Coffee System</a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href=""><i
                 class="fas fa-bars text-white"></i></button>
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="{{ route('admin.home') }}">Team Coffee</a>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 text-white">
             {{-- <div class="input-group text-white">
@@ -64,13 +64,19 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark bg-primary " id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="{{ route('admin.home') }}">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading text-white">Activity</div>
-
-                        <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                        {{-- <a class="nav-link text-white" href="{{ route('admin.home') }}">Report</a> --}}
+                        <a class="nav-link collapsed text-white" href="{{ route('admin.home') }}">
+                            <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
+                            </div>
+                            Report
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
+                        </a>
+                        <a class="nav-link collapsed text-white" href="" data-bs-toggle="collapse"
                             data-bs-target="#collapsePagesProduct" aria-expanded="false"
                             aria-controls="collapsePagesProduct">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
@@ -94,7 +100,8 @@
                                         <a class="nav-link text-white" href="{{ route('admin.read') }}">Cup Size</a>
                                         <a class="nav-link text-white" href="{{ route('admin.readcoftype') }}">Coffee
                                             Type</a>
-                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.index') }}">Coffee
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.coffeename.index') }}">Coffee
                                             Name</a>
                                     </nav>
                                 </div>
@@ -113,7 +120,8 @@
                                         <a class="nav-link text-white" href="{{ route('admin.cup') }}">Cup Size</a>
                                         <a class="nav-link text-white" href="{{ route('admin.coffeetype') }}">Coffee
                                             Type</a>
-                                        <a class="nav-link text-white" href="{{ route('admin.coffeename.create') }}">Coffee
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.coffeename.create') }}">Coffee
                                             Name</a>
                                     </nav>
                                 </div>
@@ -122,14 +130,51 @@
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-columns text-white"></i></div>
-                            Layouts
+                            Stocks
                             <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse text-white" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-white" href="">Inventory</a>
-                                <a class="nav-link text-white" href="">Purchase Order</a>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="stockCup">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseStockCup" aria-expanded="false"
+                                    aria-controls="collapseStockCup">
+                                    Stock Cup
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseStockCup" aria-labelledby="headingOne"
+                                    data-bs-parent="#stockCup">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockCup.index') }}">List Cup</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockCup.create') }}">Add
+                                            Cup</a>
+
+                                    </nav>
+                                </div>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="stockStraws">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseStockStraws" aria-expanded="false"
+                                    aria-controls="collapseStockStraws">
+                                    Stock Straws
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseStockStraws" aria-labelledby="headingOne"
+                                    data-bs-parent="#stockStraws">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockstraw.index') }}">List
+                                            Straw</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockstraw.create') }}">Add
+                                            Straw</a>
+
+                                    </nav>
+                                </div>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
@@ -140,36 +185,21 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
-                                    </div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link text-white" href="{{ route('admin.listuser') }}">List
-                                            User Admin</a>
-                                        <a class="nav-link text-white" href="{{ route('user.register') }}">List
-                                            User Staff</a>
-                                        {{-- <a class="nav-link text-white" href="{{ route('password.request') }}">Forget
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-white" href="{{ route('admin.listuseradmin') }}">List
+                                    User Admin</a>
+                                <a class="nav-link text-white" href="{{ route('admin.listuser') }}">List
+                                    User Staff</a>
+                                <a class="nav-link text-white" href="{{ route('admin.register') }}">Add
+                                    User Admin</a>
+                                <a class="nav-link text-white" href="{{ route('user.register') }}">Add
+                                    User Staff</a>
+                                {{-- <a class="nav-link text-white" href="{{ route('password.request') }}">Forget
                                             Password</a> --}}
-                                    </nav>
-                                </div>
                             </nav>
+
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
+
                     </div>
                 </div>
 
@@ -182,12 +212,12 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Coffee System 2021</div>
-                        <div>
+                        <div class="text-muted">Copyright &copy; Team Coffee 2021</div>
+                        {{-- <div>
                             <a href="#">Privacy Policy</a>
                             &middot;
                             <a href="#">Terms &amp; Conditions</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </footer>

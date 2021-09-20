@@ -12,8 +12,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="row" style="padding-left: 70px; padding-right: 70px;">
-            <h4 class="bg-primary text-white p-2">List User Admin</h4>
-
+            <h4 class="bg-primary text-white p-2">List User Staff</h4>
             <table class="table col-md-9 m-auto" id="table">
                 <thead>
                     <tr>
@@ -25,14 +24,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($reads->count() > 0)
-                        @foreach ($reads as $index => $item)
+                    @if ($user->count() > 0)
+                        @foreach ($user as $index => $item)
                             <tr>
                                 <td scope="row">{{ $index + 1 }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>
-
                                     @if ($item->is_allow == 1)
                                         <div class="form-check form-switch">
                                             <label><input type="checkbox" class="form-check-input"
@@ -48,11 +46,8 @@
                                                     class="lever switch-col-blue-grey"></span></label>
                                         </div>
                                     @endif
-
-                                    {{-- <input data-id="{{ $item->id }}" class="toggle-class" type="checkbox"
-                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                        data-off="Inactive" {{ $item->is_allow ? 'checked' : '' }}> --}}
                                 </td>
+
                                 <td>
                                     <a href=""><i class="far fa-edit"></i></a>
 
@@ -71,7 +66,7 @@
 
                     @else
                         <tr>
-                            <td colspan="5">
+                            <td>
                                 <h3>No data</h3>
                             </td>
                         </tr>
@@ -94,7 +89,6 @@
     {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
-    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
     <script !src="">
         $(document).ready(function() {
             $('#table').DataTable();
@@ -136,7 +130,6 @@
             });
         };
     </script>
-
     <script>
         function is_allow(userId) {
             var userId = userId;
@@ -150,7 +143,7 @@
             }
 
             $.ajax({
-                url: "{{ route('admin.changeStatus') }}",
+                url: "{{ route('admin.userStatus') }}",
                 method: "POST",
                 data: {
                     "_token": "{{ csrf_token() }}",
@@ -160,12 +153,14 @@
                 success: function(data) {
                     console.log(data);
                     if (data.is_allow == 1) {
+                        tostr.success('user can access');
                         Swal.fire(
                             'Open Permission',
                             'Now ' + '<b>' + data.name + '</b>' + ' can access login',
                             'success'
                         )
                     } else {
+                        tostr.success('user can access.......');
                         Swal.fire(
                             'Close Permission',
                             'Now ' + '<b>' + data.name + '</b>' + ' can not access login',
@@ -189,7 +184,7 @@
 
             // var _token = $('input[name="_token"]').val();
             $.ajax({
-                url: "{{ route('admin.changeStatus') }}",
+                url: "{{ route('admin.userStatus') }}",
                 method: "POST",
                 data: {
                     "_token": "{{ csrf_token() }}",
@@ -219,45 +214,4 @@
             });
         }
     </script>
-    {{-- <script>
-        $(function() {
-            $('.toggle-class').change(function() {
-                var is_allow = $(this).prop('checked') == true ? 1 : 0;
-                var member_id = $(this).data('id');
-
-                var data = {
-                    'is_allow': is_allow,
-                    'member_id': member_id,
-                    "_token": "{{ csrf_token() }}",
-                }
-                // var datas = {
-                //     dataa: data,
-
-                //     "_token": "{{ csrf_token() }}",
-                // };
-                let route = '{{ url('admin/changeStatus') }}'
-                $.post(route, data, function(response) {
-                    if (response) {
-                        console.log(response);
-                    }
-                });
-
-                // Useing Ajax
-
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: 'admin/changeStatus',
-                    data: {
-                        'is_allow': is_allow,
-                        'member_id': member_id
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    }
-                });
-
-            });
-        });
-    </script> --}}
 @endpush

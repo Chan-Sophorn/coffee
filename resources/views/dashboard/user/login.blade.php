@@ -34,7 +34,8 @@
                                         <input type="checkbox" onclick="myFunction()" class="filled-in">
                                         <span style=" font-size:12px;">Show Password</span>
                                     </label>
-                                    <a href="#" style=" font-size:12px;margin-left:60px;color:violet;font-weight:bold;">Forget
+                                    <a href="#" style=" font-size:12px;margin-left:60px;color:violet;font-weight:bold;"
+                                        id="shwoMessage">Forget
                                         password?</a>
                                     <button class="btn waves-effect waves-light font-content mb-25px mt-25px w-100pe text-white"
                                         type="submit" style="background: #0D47A1; ">
@@ -43,10 +44,10 @@
                                             &nbsp;&nbsp;ចូល
                                         </div>
                                     </button>
-                                    <p style=" font-size:12px;text-align:center"><a href="#"></a>
+                                    {{-- <p style=" font-size:12px;text-align:center"><a href="#"></a>
                                         <a href="{{ route('user.register') }}" style=" font-size:12px;margin-left:10px;">Register
                                             ?</a>
-                                    </p>
+                                    </p> --}}
                                 </div>
                             </form>
                         </div>
@@ -54,3 +55,23 @@
                 </div>
             </div>
         @endsection
+        @push('js')
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#shwoMessage').click(function() {
+                        var message = "Please contact to admin";
+                        alert(message);
+                    });
+
+                });
+
+                function myFunction() {
+                    var x = document.getElementById("password");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                }
+            </script>
+        @endpush

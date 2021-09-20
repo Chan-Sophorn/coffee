@@ -5,25 +5,46 @@
 @section('content')
     <div class="container mt-5">
         <div class="row" style="padding-left: 70px; padding-right: 70px;">
-            <h4 class="bg-primary text-white p-2">Coffee Type</h4>
+            <h4 class="bg-primary text-white p-2">Stock Cups</h4>
             <table class="table col-md-9 m-auto" id="table">
                 <thead>
                     <tr>
                         <th scope="col">No.</th>
                         <th scope="col">Name</th>
+                        <th scope="col">QTy</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Total_Cup</th>
+                        <th scope="col">Total_Price</th>
+                        <th scope="col">Date</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($coftype->count() > 0)
-                        @foreach ($coftype as $index => $item)
+                    @if ($stockCups->count() > 0)
+                        @foreach ($stockCups as $index => $item)
                             <tr>
                                 <td scope="row">{{ $index + 1 }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->price . "$" }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>{{ "$" . ' ' . $item->price }}</td>
+                                <td>{{ $item->total_cup }}
+                                    @if ($item->total_cup < 100)
+                                        <div
+                                            style="display: inline; background: red; color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
+                                            <label>low</label>
+                                        </div>
+                                    @else
+                                        <div
+                                            style="display: inline; background: rgb(0, 17, 255); color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
+                                            <label>Good</label>
+                                        </div>
+
+                                    @endif
+                                </td>
+                                <td>{{ "$" . ' ' . $item->total_price }}</td>
+                                <td>{{ $item->date }}</td>
                                 <td>
-                                    <a href="{{ route('admin.editcoftype', $item->id) }}"><i
+                                    <a href="{{ route('admin.stockCup.edit', $item->id) }}"><i
                                             class="far fa-edit"></i></a>
 
                                     <button type="button" class="btn btn-danger" style="border: none; background: none"
@@ -31,7 +52,7 @@
                                         <i class="fas fa-trash-alt text-danger"></i>
                                     </button>
                                     <form id="delete-from-{{ $item->id }}"
-                                        action="{{ route('admin.deletecoftype', $item->id) }}" method="POST"
+                                        action="{{ route('admin.stockCup.destroy', $item->id) }}" method="POST"
                                         style="display: none;">
                                         @csrf
                                         @method('DELETE')

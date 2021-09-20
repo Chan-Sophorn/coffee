@@ -18,24 +18,27 @@
                 @method('put')
                 <div class="mb-3 col-9">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ $cup->name }}">
-                    <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+                    <select class="form-select bg-input" name="name" id="name">
+                        <option value="small" {{ $cup->name === 'small' ? 'Selected' : '' }}>small</option>
+                        <option value="medium" {{ $cup->name === 'medium' ? 'Selected' : '' }}>medium</option>
+                        <option value="large" {{ $cup->name === 'large' ? 'Selected' : '' }}>large</option>
+                    </select>
+                </div>
+                <div class="mb-3 col-9">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="price" value="{{ $cup->price }}">
+                    <span class="text-danger">@error('price'){{ $message }}@enderror</span>
                     </div>
                     <div class="mb-3 col-9">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="text" class="form-control" id="price" name="price" value="{{ $cup->price }}">
-                        <span class="text-danger">@error('price'){{ $message }}@enderror</span>
-                        </div>
-                        <div class="mb-3 col-9">
-                            <a class="btn mt-3" href="{{ route('admin.read') }}">
-                                <i class="fas fa-arrow-left"></i>
-                                <span>BACK</span>
-                            </a>
+                        <a class="btn mt-3" href="{{ route('admin.read') }}">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>BACK</span>
+                        </a>
 
-                            <button type="submit" name="save" class="btn btn-primary mt-3 float-end">Save</button>
-                        </div>
+                        <button type="submit" name="save" class="btn btn-primary mt-3 float-end">Save</button>
+                    </div>
 
-                    </form>
-                </div>
+                </form>
             </div>
-        @endsection
+        </div>
+    @endsection

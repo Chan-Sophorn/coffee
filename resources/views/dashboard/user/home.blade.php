@@ -174,7 +174,7 @@
                                 <th>Sugar</th>
                                 <th>Price</th>
                                 <th>Total</th>
-                                <th><a href="#" id="add_row"><i class="fas fa-plus text-white"></i></a></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="tbody" style="background: rgb(224, 222, 222)">
@@ -242,7 +242,7 @@
                                 <th>Total</th>
                                 <td> <span class="total"></span></td>
                                 <td><a href="#" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
-                                        Saves</a></td>
+                                        Saves/Print</a></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -261,7 +261,7 @@
                 <div class="modal-header bg-primary bg-header-model">
                     <h5 class="modal-title text-white" id="exampleModalLabel">ADD NEW ORDER</h5>
                 </div>
-                <form action="" novalidate>
+                <form action="" novalidate autocomplete="off">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-4">
@@ -294,7 +294,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="size" id="size"
                                             value="{{ $item->id . '-' . $item->price . '-' . $item->name }}" checked>
-                                        <label class="form-check-label" for="large">{{ $item->name }}</label>
+                                        <label class="form-check-label" for="size">{{ $item->name }}</label>
 
                                     </div>
                                 @endforeach
@@ -384,12 +384,21 @@
                                 <td>${i.type.name} </td>
                                 <td>${i.size.name} </td>
                                 <td>${i.qty }</td>
-                                <td>${i.sugar} </td>
+                                <td>${i.sugar} % </td>
                                 <td>${((parseFloat(i.coffee_type.price) + parseFloat(i.type.price) + parseFloat(i.size.price))).toFixed(2)} </td>
                                 <td>${i.price }</td>
                             </tr >
                         `;
-                        })
+                        });
+                        var total = 0;
+                        var khmer = 0;
+                        let my_total = ''
+                        all_orders.forEach(item => {
+                            console.log(item.price);
+                            total = total + parseFloat(item.price);
+                            khmer = total * 4100;
+                        });
+                        // $('.total').text(total.toFixed(2));
                         let contents = `
                         <html>
                         <header>
@@ -420,6 +429,7 @@
                             }
                             table,tr,td{
                                 border-collapse: collapse !important;
+                                text-align: center!important;
                             }
                             table{
                                 width:100%;
@@ -437,10 +447,12 @@
                                     page-break-after: always !important;
                                 }
                             }
-                            table th{
+                            table th, tbody{
                                 padding: 8px 6px !important ;
-                                border: 1px solid  #000;
+                                border-top: 1px solid  #000;
+                                border-bottom: 1px solid  #000;
                                 border-collapse: collapse;
+                                margin-bottom: 8px;
                             }
                             table{
                                 width: 100%;
@@ -480,9 +492,83 @@
                         </style>
                         </header>
                         <body>
+                        <div class="col-lg-12">	
+                        <img src="{{ asset('/images/teamcoffee.jpg') }}" alt="profile" width="150px" height="150px"
+                            style="display: block; margin: 0 auto;">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <label>#177S, Chom Ka Doung Street(St,217)</label></br>
+                            <label>Phnom Penh, Kingdom of Cambodia</label></br>
+                            <label>+855 96 928 8830</label></br></br>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <label class="h3">COFFEE TEAM WELCOME</label></br>	
+                        </div></br>
+                        <div class="col-lg-12 text-center">
+                            <label class="h4">RECEIPT</label></br>	
+                        </div>
                             <table>
-                               ${my_tr}
-                            </table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Qty</th>
+                                <th>Sugar</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                
+                            </tr>
+                            
+                            </thead>
+                            <tbody>
+                                ${my_tr}
+                            </tbody>
+                               
+                            <tfoot>
+                            <tr>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <th>Totals</th>
+                                
+            
+                            </tr>
+                            <tr>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"> <span class="currency">USD</span></td>
+                                <td>                                    
+                                    <span class="amont">${ total.toFixed(2)}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"></td>
+                                <td style="border: none"><span class="currency">KH</span></td>
+                                <td>                                    
+                                    <span class="amont">${ khmer.toFixed(2)}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                            </table></br>
+                            <div class="col-lg-10" style="height: 1px; border: 1px solid rgb(58, 57, 57);margin: 0 auto;">
+                            </div></br>
+                            <div class="col-lg-12 text-center">
+                                    <label class="h5">Thank You!</label></br>	
+                                    <label class="h5">We would love welcome you back soon!</label></br>	
+                                </div></br>
+                                <div class="col-lg-9" style="height: 1px; border: 1px solid rgb(58, 57, 57);margin: 0 auto;">
+                            </div></br>
                         </body>
                         </html>
                     `;
@@ -561,7 +647,7 @@
                 coffe_order.type.name = cofeeType[2];
                 console.log(cofeeType, 'Coffe Type');
                 // size
-                let cofeeSize = $("#size").val().split('-');
+                let cofeeSize = $("#size:checked").val().split('-');
                 console.log(cofeeSize, 'Cofffe Size');
                 coffe_order.size.id = cofeeSize[0];
                 coffe_order.size.price = cofeeSize[1];
@@ -576,7 +662,7 @@
                 console.log("total price", coffe_order.price);
 
                 if (coffe_order.qty == '' || coffe_order.sugar == '') {
-                    alert("Pleas input all fields");
+                    alert("Please input all fields");
                     return;
                 }
                 var tr = '<tr>' +
@@ -592,6 +678,7 @@
                     '><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
+                alert("Your data already add to list.");
                 console.log(coffe_order, 'order itme');
                 all_orders.push(coffe_order)
                 var total = 0;
