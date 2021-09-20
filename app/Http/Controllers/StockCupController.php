@@ -48,7 +48,7 @@ class StockCupController extends Controller
         $stockCup = new StockCup();
         $stockCup->name = $request->name;
         $stockCup->quantity = $request->qty;
-        $stockCup->total_cup = $request->qty * 100;
+        $stockCup->total_cup = $request->qty * 50;
         $stockCup->price = $request->price;
         $total = $request->price * $request->qty;
         $stockCup->total_price = $total;
@@ -106,7 +106,7 @@ class StockCupController extends Controller
         $cup = StockCup::findOrFail($id);
         $cup->name = $request->name;
         $cup->quantity = $request->qty;
-        $cup->total_cup = $request->qty * 100;
+        $cup->total_cup = $request->qty * 50;
         $cup->price = $request->price;
         $total = $request->price * $request->qty;
         $cup->total_price = $total;

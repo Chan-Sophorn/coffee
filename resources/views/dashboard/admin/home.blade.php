@@ -1,6 +1,7 @@
 @extends('dashboard.admin.master')
 @push('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css"> --}}
 @endpush
 @section('title', 'Report')
 @section('content')
@@ -48,7 +49,7 @@
                             <td>{{ $value->CoffeeName->name }}</td>
                             <td>{{ $value->CoffeeType->name }}</td>
                             <td>{{ $value->quantity }}</td>
-                            <td>{{ $value->price . '$' }}</td>
+                            <td>{{ $value->total . '$' }}</td>
                             <td>{{ $value->date }}</td>
                             <td>
                                 {{-- <a href=""><i class="far fa-edit"></i></a> --}}
@@ -77,13 +78,14 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     {{-- Datatable with button pdf --}}
-    <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('js/buttons.print.min.js') }}"></script>
+
 
     <script !src="">
         $(document).ready(function() {
