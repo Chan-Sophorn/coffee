@@ -31,12 +31,23 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>
-                                    {{-- <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"> --}}
-                                    <input data-id="{{ $item->id }}" class="toggle-class" type="checkbox"
-                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                        data-off="Inactive" {{ $item->is_allow ? 'checked' : '' }}>
+                                    @if ($item->is_allow == 1)
+                                        <div class="form-check form-switch">
+                                            <label><input type="checkbox" class="form-check-input"
+                                                    id="is_allow{{ $item->id }}" checked=""
+                                                    onclick="is_allow({{ $item->id }})"><span
+                                                    class="lever switch-col-blue-grey"></span></label>
+                                        </div>
+                                    @else
+                                        <div class="form-check form-switch">
+                                            <label><input type="checkbox" class="form-check-input"
+                                                    id="pendding{{ $item->id }}"
+                                                    onclick="pendding({{ $item->id }})"><span
+                                                    class="lever switch-col-blue-grey"></span></label>
+                                        </div>
+                                    @endif
                                 </td>
-                                {{-- <td>{{ $item->is_allow }}</td> --}}
+
                                 <td>
                                     <a href=""><i class="far fa-edit"></i></a>
 
@@ -120,43 +131,87 @@
         };
     </script>
     <script>
-        $(function() {
-            $('.toggle-class').change(function() {
-                var is_allow = $(this).prop('checked') == true ? 1 : 0;
-                var member_id = $(this).data('id');
+        function is_allow(userId) {
+            var userId = userId;
+            var is_allow;
+            var is_allow = document.getElementById('is_allow' + userId);
 
-                var data = {
-                    'is_allow': is_allow,
-                    'member_id': member_id
-                }
-                var datas = {
-                    dataa: data,
+            if (is_allow.checked) {
+                is_allow = 1;
+            } else {
+                is_allow = 0;
+            }
 
+            $.ajax({
+                url: "{{ route('admin.userStatus') }}",
+                method: "POST",
+                data: {
                     "_token": "{{ csrf_token() }}",
-                };
-                let route = '{{ url('admin/changeStatus') }}'
-                $.post(route, datas, function(response) {
-                    if (response) {
-                        console.log(response);
+                    userId: userId,
+                    is_allow: is_allow,
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.is_allow == 1) {
+                        tostr.success('user can access');
+                        Swal.fire(
+                            'Open Permission',
+                            'Now ' + '<b>' + data.name + '</b>' + ' can access login',
+                            'success'
+                        )
+                    } else {
+                        tostr.success('user can access.......');
+                        Swal.fire(
+                            'Close Permission',
+                            'Now ' + '<b>' + data.name + '</b>' + ' can not access login',
+                            'success'
+                        )
                     }
-                });
-
-                //    Useing Ajax
-
-                // $.ajax({
-                //     type: "POST",
-                //     dataType: "json",
-                //     url: 'admin/changeStatus',
-                //     data: {
-                //         'is_allow': is_allow,
-                //         'member_id': member_id
-                //     },
-                //     success: function(data) {
-                //         console.log(data);
-                //     }
-                // });
-
+                }
             });
-        });
+        }
+
+        function pendding(userId) {
+            // alert(userId);
+            var userId = userId;
+            var is_allow;
+            var pendding = document.getElementById('pendding' + userId);
+            if (pendding.checked) {
+                is_allow = 1;
+            } else {
+                is_allow = 0;
+            }
+
+            // var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('admin.userStatus') }}",
+                method: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    userId: userId,
+                    is_allow: is_allow,
+                },
+                success: function(data) {
+
+                    // console.log(data.approved);
+
+                    if (data.is_allow == 1) {
+                        tostr.success('user can access');
+                        Swal.fire(
+                            'Open Permission',
+                            'Now ' + '<b>' + data.name + '</b>' + ' can access login',
+                            'success'
+                        )
+                    } else {
+                        tostr.success('user can not access.');
+                        Swal.fire(
+                            'Close Permission',
+                            'Now ' + '<b>' + data.name + '</b>' + ' can not access login',
+                            'success'
+                        )
+                    }
+                }
+            });
+        }
     </script>
 @endpush

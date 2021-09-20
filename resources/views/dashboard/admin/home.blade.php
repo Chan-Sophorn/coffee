@@ -7,6 +7,28 @@
     <div class="container mt-5">
         <div class="row" style="padding-left: 70px; padding-right: 70px;">
             <h4 class="bg-primary text-white p-2">Coffee Report</h4>
+
+            <form class="form-inline" action="{{ route('admin.search') }}" method="POST"
+                style="margin: 20px; margin-bottom: 30px;">
+                @csrf
+                <div class="row">
+                    <div class=" col-4 form-group">
+                        <label for="startDate">From Date:</label>
+                        <input type="date" class="form-control" id="" name="startDate">
+                    </div>
+                    <div class=" col-4 form-group">
+                        <label for="endDate">To Date:</label>
+                        <input type="date" class="form-control" id="" name="endDate">
+                    </div>
+                    <div class=" col-1 form-group">
+                        <label for=""></label>
+                        <button type="submit" class="form-control"><i class="fas fa-search"></i></button>
+                    </div>
+
+                </div>
+
+            </form>
+
             <table class="table col-md-9 m-auto" id="table">
                 <thead>
                     <tr>

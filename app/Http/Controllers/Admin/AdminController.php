@@ -10,6 +10,7 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\New_;
 
@@ -30,20 +31,24 @@ class AdminController extends Controller
 
     public function changeStatus(Request $request){
        
-       return $request;
-    //       foreach($request->dataa as $item){
-    //           $admin = new Admin();
-    //           $admin->id = $item->member_id;
-    //           $admin->is_allow = $item->is_allow;
-    //           $admin->save();
-              
-    //       }
+        $userId = $request->userId;
+        $is_allow = $request->is_allow;
+        $admin = Admin::find($userId);
+        $admin->is_allow = $is_allow;
+        $admin->save();
+        $admin = Admin::find($userId);
+        return $admin;
+        // return response()->json($admin);
+    }
 
-        // when useing ajax
-        // return $request;
-        // $admin = Admin::find($request->member_id);
-        // $admin->is_allow = $request->is_allow;
-        // $admin->save();
+    public function userStatus(Request $request){
+        $userId = $request->userId;
+        $is_allow = $request->is_allow;
+        $user = User::find($userId);
+        $user->is_allow = $is_allow;
+        $user->save();
+        $user = User::find($userId);
+        return $user;
     }
 
     public function check(Request $request){
@@ -100,5 +105,35 @@ class AdminController extends Controller
         Toastr::success('Delete Successfully :)', 'Success');
         return redirect()->route('admin.home');
 
+    }
+    
+    public function search(Request $request){
+
+        // $orders = Order::all();
+        // $request->validate([
+        //     'startDate'=>'required',
+        //     'endDate'=>'required',
+            
+        // ]);
+
+        // $startDate = $request->input('startDate');
+        // $endDate = $request->input('endDate');
+
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        if ($startDate== null || $endDate== null) {
+            $orders = Order::all();
+            return view('dashboard.admin.home', compact('orders'));
+        }
+        
+        $orders = Order::where('date', '>=', $startDate)->where('date', '<=', $endDate)->get();
+        // dd($orders);
+        // $orders = DB::table('orders')->select()
+        // ->where('date', '>=', $startDate)
+        // ->where('date', '<=', $endDate)
+        // ->get();
+        // dd($query);
+        return view('dashboard.admin.home', compact('orders'));
     }
 }

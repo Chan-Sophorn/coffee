@@ -27,7 +27,20 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->quantity }}</td>
                                 <td>{{ "$" . ' ' . $item->price }}</td>
-                                <td>{{ $item->total_cup }}</td>
+                                <td>{{ $item->total_cup }}
+                                    @if ($item->total_cup < 100)
+                                        <div
+                                            style="display: inline; background: red; color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
+                                            <label>low</label>
+                                        </div>
+                                    @else
+                                        <div
+                                            style="display: inline; background: rgb(0, 17, 255); color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
+                                            <label>Good</label>
+                                        </div>
+
+                                    @endif
+                                </td>
                                 <td>{{ "$" . ' ' . $item->total_price }}</td>
                                 <td>{{ $item->date }}</td>
                                 <td>

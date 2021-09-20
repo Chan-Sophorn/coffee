@@ -61,7 +61,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::middleware(['auth:admin'])->group(function(){
         Route::get('/home',[AdminController::class,'report'])->name('home');
-         Route::delete('/del/{id}',[AdminController::class,'del'])->name('del');
+        Route::post('/home',[AdminController::class,'search'])->name('search');
+        Route::delete('/del/{id}',[AdminController::class,'del'])->name('del');
         //  Route::view('/home', 'dashboard.admin.home')->name('home');
          Route::resource('/product', ProductController::class);
         Route::view('/register', 'dashboard.admin.register')->name('register');
@@ -70,6 +71,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
 //         Route::post('/create', [AdminController::class, 'create'])->name('create');
         Route::get('/listuseradmin',[AdminController::class,'read'])->name('listuseradmin');
         Route::post('/changeStatus',[AdminController::class,'changeStatus'])->name('changeStatus');
+        Route::post('/userStatus',[AdminController::class,'userStatus'])->name('userStatus');
 
          Route::get('/read', [CupController::class, 'read'])->name('read');
          Route::get('/cup', [CupController::class, 'index'])->name('cup');

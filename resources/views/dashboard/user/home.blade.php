@@ -241,7 +241,7 @@
                                 <td style="border: none"></td>
                                 <th>Total</th>
                                 <td> <span class="total"></span></td>
-                                <td><a href="" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
+                                <td><a href="#" class="btn btn-success btn-small" id="SaveOrder" style="width: 100px;">
                                         Saves/Print</a></td>
                             </tr>
                         </tfoot>
