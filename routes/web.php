@@ -93,6 +93,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::resource('/stockstraw', stockStrawsController::class);
          Route::resource('/stockCup', StockCupController::class);
 
+         
     });
 
 
