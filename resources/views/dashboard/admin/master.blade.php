@@ -10,9 +10,12 @@
     <title>@yield('title')</title>
 
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" />
+    {{-- <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" /> --}}
 
     <script src="https://kit.fontawesome.com/ac9ef71407.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    {{-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" /> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
@@ -71,7 +74,7 @@
                         <div class="sb-sidenav-menu-heading text-white">Activity</div>
                         {{-- <a class="nav-link text-white" href="{{ route('admin.home') }}">Report</a> --}}
                         <a class="nav-link collapsed text-white" href="{{ route('admin.home') }}">
-                            <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
+                            <div class="sb-nav-link-icon text-white"><i class="fas fa-list text-white"></i>
                             </div>
                             Report
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
@@ -81,7 +84,7 @@
                             aria-controls="collapsePagesProduct">
                             <div class="sb-nav-link-icon text-white"><i class="fas fa-shopping-cart text-white"></i>
                             </div>
-                            Product Sell
+                            Category
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down text-white"></i></div>
                         </a>
                         <div class="collapse" id="collapsePagesProduct" aria-labelledby="headingTwo"
@@ -225,8 +228,10 @@
     </div>
     <script src="{{ asset('js/scripts.js') }}"></script>
     <script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
+    <script src="{{ asset('js/bootstraps.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
@@ -243,6 +248,25 @@
             @endforeach
         
         @endif
+    </script>
+    <script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "900",
+            "timeOut": "2000",
+            "extendedTimeOut": "900",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     </script>
     @stack('js')
 </body>

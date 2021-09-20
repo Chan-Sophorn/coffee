@@ -160,17 +160,10 @@
                 success: function(data) {
                     console.log(data);
                     if (data.is_allow == 1) {
-                        Swal.fire(
-                            'Open Permission',
-                            'Now ' + '<b>' + data.name + '</b>' + ' can access login',
-                            'success'
-                        )
+                        toastr.success("User is enable.  :)");
                     } else {
-                        Swal.fire(
-                            'Close Permission',
-                            'Now ' + '<b>' + data.name + '</b>' + ' can not access login',
-                            'success'
-                        )
+                        toastr.warning("User is disable. :(");
+
                     }
                 }
             });
@@ -201,19 +194,11 @@
                     // console.log(data.approved);
 
                     if (data.is_allow == 1) {
-                        tostr.success('user can access');
-                        Swal.fire(
-                            'Open Permission',
-                            'Now ' + '<b>' + data.name + '</b>' + ' can access login',
-                            'success'
-                        )
+                        toastr.success("User is enable.  :)");
+
                     } else {
-                        tostr.success('user can not access.');
-                        Swal.fire(
-                            'Close Permission',
-                            'Now ' + '<b>' + data.name + '</b>' + ' can not access login',
-                            'success'
-                        )
+                        toastr.warning("User is disable. :(");
+
                     }
                 }
             });

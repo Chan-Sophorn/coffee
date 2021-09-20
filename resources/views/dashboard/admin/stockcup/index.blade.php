@@ -30,7 +30,7 @@
                                 <td>{{ $item->total_cup }}
                                     @if ($item->total_cup < 100)
                                         <div
-                                            style="display: inline; background: red; color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
+                                            style="display: inline; background: red; color: seashell; padding: 0px 10px; margin-left: 25px; border-radius: 30%;">
                                             <label>low</label>
                                         </div>
                                     @else

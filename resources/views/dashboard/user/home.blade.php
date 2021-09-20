@@ -367,7 +367,7 @@
                 if (all_orders.length == 0) {
                     return;
                 }
-                alert("You already Save");
+                toastr.success("You already Save orders. :)");
                 var data = {
                     orders: all_orders,
 
@@ -662,7 +662,7 @@
                 console.log("total price", coffe_order.price);
 
                 if (coffe_order.qty == '' || coffe_order.sugar == '') {
-                    alert("Please input all fields");
+                    toastr.warning("Please input all fields");
                     return;
                 }
                 var tr = '<tr>' +
@@ -678,7 +678,7 @@
                     '><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
-                alert("Your data already add to list.");
+                toastr.success("Your data already add to list.  :)");
                 console.log(coffe_order, 'order itme');
                 all_orders.push(coffe_order)
                 var total = 0;
