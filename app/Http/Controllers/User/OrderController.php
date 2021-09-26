@@ -118,18 +118,27 @@ class OrderController extends Controller
                 $qtyCupLarge = $cups->total_cup - $orderQtylarge;
                 $resultCuplarge = StockCup::findOrFail($idCupLarge);
                 $resultCuplarge->total_cup = $qtyCupLarge;
+                if ($resultCuplarge->total_cup <= 50) {
+                    Toastr::warning('Your large cup in stock low :(', 'Warining');
+                }
                 $save = $resultCuplarge->save(); 
             }else if ($cups->name == 'medium') {
                 $idCupMeduim = $cups->id;
                 $qtyCupMeduim = $cups->total_cup - $orderQtymeduim;
                 $resultCupMedium = StockCup::findOrFail($idCupMeduim);
                 $resultCupMedium->total_cup = $qtyCupMeduim;
+                if ($resultCupMedium->total_cup <= 50) {
+                    Toastr::warning('Your medium cup in stock low :(', 'Warining');
+                }
                 $save = $resultCupMedium->save(); 
             }else if ($cups->name == 'small') {
                 $idCupSmall = $cups->id;
                 $qtyCupSmall = $cups->total_cup - $orderQtyCsmall;
                 $resultCupSmall = StockCup::findOrFail($idCupSmall);
                 $resultCupSmall->total_cup = $qtyCupSmall;
+                if ($resultCupSmall->total_cup <= 50) {
+                    Toastr::warning('Your small cup in stock low :(', 'Warining');
+                }
                 $save = $resultCupSmall->save(); 
             }
         }

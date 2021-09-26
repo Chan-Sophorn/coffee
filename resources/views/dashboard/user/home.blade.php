@@ -399,6 +399,7 @@
                             khmer = total * 4100;
                         });
                         // $('.total').text(total.toFixed(2));
+                        var formatter = new Intl.NumberFormat('en-US');
                         let contents = `
                         <html>
                         <header>
@@ -545,7 +546,7 @@
                                 <td style="border: none"></td>
                                 <td style="border: none"> <span class="currency">USD</span></td>
                                 <td>                                    
-                                    <span class="amont">${ total.toFixed(2)}</span>
+                                    <span class="amont">${total.toFixed(2)}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -554,9 +555,9 @@
                                 <td style="border: none"></td>
                                 <td style="border: none"></td>
                                 <td style="border: none"></td>
-                                <td style="border: none"><span class="currency">KH</span></td>
+                                <td style="border: none"><span class="currency">KHR</span></td>
                                 <td>                                    
-                                    <span class="amont">${ khmer.toFixed(2)}</span>
+                                <span class="amont">${ formatter.format(khmer) }</span>
                                 </td>
                             </tr>
                         </tfoot>
@@ -678,7 +679,7 @@
                     '><i class="fas fa-trash text-danger"></i></a></td>' +
                     '</tr >';
                 $('#tbody').append(tr);
-                toastr.success("Your data already add to list.  :)");
+                toastr.success("Your already add to list.  :)");
                 console.log(coffe_order, 'order itme');
                 all_orders.push(coffe_order)
                 var total = 0;
@@ -711,6 +712,14 @@
                 console.log(all_orders, 'total all araay');
                 $('.total').text(total.toFixed(2));
             }
+        });
+    </script>
+    <script>
+        var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'kHR',
+
+
         });
     </script>
 @endpush
