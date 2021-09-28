@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CupController;
 use App\Http\Controllers\CoffeeNameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\StockCupController;
 use App\Http\Controllers\stockStrawsController;
 use App\Http\Controllers\User\OrderController;
@@ -92,6 +93,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
          Route::view('/stock', 'dashboard.admin.stocks.index')->name('stock');
          Route::resource('/stockstraw', stockStrawsController::class);
          Route::resource('/stockCup', StockCupController::class);
+         Route::resource('/stockCoffee', StockController::class);
 
          
     });

@@ -158,6 +158,26 @@
                                     </nav>
                                 </div>
                             </nav>
+                            <nav class="sb-sidenav-menu-nested nav accordion text-white" id="stocks">
+                                <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseStocks" aria-expanded="false"
+                                    aria-controls="collapseStocks">
+                                    Stock Coffee
+                                    <div class="sb-sidenav-collapse-arrow text-white"><i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse" id="collapseStocks" aria-labelledby="headingOne"
+                                    data-bs-parent="#stocks">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockCoffee.index') }}">List Coffee</a>
+                                        <a class="nav-link text-white"
+                                            href="{{ route('admin.stockCoffee.create') }}">Add
+                                            Coffee</a>
+
+                                    </nav>
+                                </div>
+                            </nav>
                             <nav class="sb-sidenav-menu-nested nav accordion text-white" id="stockStraws">
                                 <a class="nav-link collapsed text-white" href="#" data-bs-toggle="collapse"
                                     data-bs-target="#collapseStockStraws" aria-expanded="false"

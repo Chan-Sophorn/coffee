@@ -64,7 +64,7 @@ class CoffeeTypeController extends Controller
         $save = $coftype->save();
         if ($save) {
             Toastr::success('Update Successfully :)', 'success');
-            return redirect()->route('admin.read');
+            return redirect()->route('admin.readcoftype');
         }else {
             Toastr::error('Please try again :(', 'error');
              return redirect()->back();

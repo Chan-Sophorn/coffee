@@ -18,9 +18,9 @@
                 <div class="mb-3 col-9">
                     <label for="name" class="form-label">Name</label>
                     <select class="form-select bg-input" name="name" id="name">
-                        <option value="small">Ice</option>
-                        <option value="medium">Frappe</option>
-                        <option value="large">Hot</option>
+                        <option value="Ice">Ice</option>
+                        <option value="Frappe">Frappe</option>
+                        <option value="Hot">Hot</option>
                     </select>
                 </div>
                 <div class="mb-3 col-9">
