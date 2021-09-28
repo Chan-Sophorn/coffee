@@ -19,9 +19,9 @@
                 <div class="mb-3 col-9">
                     <label for="name" class="form-label">Name</label>
                     <select class="form-select bg-input" name="name" id="name">
-                        <option value="small" {{ $coftype->name === 'Ice' ? 'Selected' : '' }}>Ice</option>
-                        <option value="medium" {{ $coftype->name === 'Frappe' ? 'Selected' : '' }}>Frappe</option>
-                        <option value="large" {{ $coftype->name === 'Hot' ? 'Selected' : '' }}>Hot</option>
+                        <option value="Ice" {{ $coftype->name === 'Ice' ? 'Selected' : '' }}>Ice</option>
+                        <option value="Frappe" {{ $coftype->name === 'Frappe' ? 'Selected' : '' }}>Frappe</option>
+                        <option value="Hot" {{ $coftype->name === 'Hot' ? 'Selected' : '' }}>Hot</option>
                     </select>
                 </div>
                 <div class="mb-3 col-9">
