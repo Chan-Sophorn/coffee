@@ -25,11 +25,13 @@
                                 <td>
                                     <a href="{{ route('admin.edit', $item->id) }}"><i class="far fa-edit"></i></a>
 
-                                    <button type="button" class="btn btn-danger" style="border: none; background: none" onclick="deleteType({{ $item->id }})">
+                                    <button type="button" class="btn btn-danger" style="border: none; background: none"
+                                        onclick="deleteType({{ $item->id }})">
                                         <i class="fas fa-trash-alt text-danger"></i>
                                     </button>
-                                    <form id="delete-from-{{ $item->id }}" action="{{ route('admin.deletecup', $item->id) }}" method="POST"
-                                          style="display: none;">
+                                    <form id="delete-from-{{ $item->id }}"
+                                        action="{{ route('admin.deletecup', $item->id) }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -37,32 +39,32 @@
                             </tr>
 
                             <!-- Modal -->
-                            {{--<div class="modal fade" id="deletemodel" tabindex="-1" aria-labelledby="deletemodel"--}}
-                                {{--aria-hidden="true">--}}
-                                {{--<div class="modal-dialog">--}}
-                                    {{--<div class="modal-content">--}}
-                                        {{--<div class="modal-header">--}}
-                                            {{--<h5 class="modal-title text-danger" id="">Delete Record</h5>--}}
+                            {{-- <div class="modal fade" id="deletemodel" tabindex="-1" aria-labelledby="deletemodel" --}}
+                            {{-- aria-hidden="true"> --}}
+                            {{-- <div class="modal-dialog"> --}}
+                            {{-- <div class="modal-content"> --}}
+                            {{-- <div class="modal-header"> --}}
+                            {{-- <h5 class="modal-title text-danger" id="">Delete Record</h5> --}}
 
-                                        {{--</div>--}}
-                                        {{--<div class="modal-body">--}}
-                                            {{--Delete, Are you sure ?--}}
-                                        {{--</div>--}}
-                                        {{--<div class="modal-footer">--}}
-                                            {{--<button type="button" class="btn btn-secondary"--}}
-                                                {{--data-bs-dismiss="modal">Close</button>--}}
-                                            {{--<form action="{{ route('admin.deletecup', $item->id) }}" method="POST"--}}
-                                                {{--style="display: inline-block">--}}
-                                                {{--@csrf--}}
-                                                {{--@method('DELETE')--}}
-                                                {{--<button type="submit" class="btn btn-danger"--}}
-                                                    {{--style="border: none;">Delete</button>--}}
-                                            {{--</form>--}}
+                            {{-- </div> --}}
+                            {{-- <div class="modal-body"> --}}
+                            {{-- Delete, Are you sure ? --}}
+                            {{-- </div> --}}
+                            {{-- <div class="modal-footer"> --}}
+                            {{-- <button type="button" class="btn btn-secondary" --}}
+                            {{-- data-bs-dismiss="modal">Close</button> --}}
+                            {{-- <form action="{{ route('admin.deletecup', $item->id) }}" method="POST" --}}
+                            {{-- style="display: inline-block"> --}}
+                            {{-- @csrf --}}
+                            {{-- @method('DELETE') --}}
+                            {{-- <button type="submit" class="btn btn-danger" --}}
+                            {{-- style="border: none;">Delete</button> --}}
+                            {{-- </form> --}}
 
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+                            {{-- </div> --}}
+                            {{-- </div> --}}
+                            {{-- </div> --}}
+                            {{-- </div> --}}
                         @endforeach
 
                     @else
@@ -87,7 +89,7 @@
     <script !src="">
         $(document).ready(function() {
             $('#table').DataTable();
-        } );
+        });
     </script>
 
     <script type="text/javascript">
@@ -111,7 +113,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     event.preventDefault();
-                    document.getElementById('delete-from-'+id).submit();
+                    document.getElementById('delete-from-' + id).submit();
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
