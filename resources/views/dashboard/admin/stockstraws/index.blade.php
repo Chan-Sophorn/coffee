@@ -30,13 +30,13 @@
                                 <td>{{ $item->total_straw }}
                                     @if ($item->total_straw < 100)
                                         <div
-                                            style="display: inline; background: red; color: seashell; padding: 0px 10px; margin-left: 25px; border-radius: 30%;">
-                                            <label>low</label>
+                                            style="display: inline; background: red; color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
+                                            <label>Refill Stock</label>
                                         </div>
                                     @else
                                         <div
                                             style="display: inline; background: rgb(0, 17, 255); color: seashell; padding: 0px 10px; margin-left: 10px; border-radius: 30%;">
-                                            <label>Good</label>
+                                            <label>In Stock</label>
                                         </div>
 
                                     @endif
