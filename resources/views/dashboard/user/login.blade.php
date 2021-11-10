@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="flex-center">
                 <div class="w-330px">
-                    <h5 class="font-title center-align mt-50px">ចូលក្នុងប្រព័ន្ធ</h5>
+                    <h5 class="font-title center-align mt-50px">Login To System</h5>
                     <form action="{{ route('user.check') }}" method="POST" class="mt-25px" autocomplete="off">
                         @if (Session::get('fail'))
                             <div class="alert alert-danger">
@@ -41,7 +41,7 @@
                                         type="submit" style="background: #0D47A1; ">
                                         <div class="flex-center">
                                             <i class="material-icons text-white">login</i>
-                                            &nbsp;&nbsp;ចូល
+                                            &nbsp;&nbsp;Login
                                         </div>
                                     </button>
                                     {{-- <p style=" font-size:12px;text-align:center"><a href="#"></a>
