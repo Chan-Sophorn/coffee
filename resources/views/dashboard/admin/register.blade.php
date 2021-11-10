@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="flex-center">
                 <div class="w-330px">
-                    <h5 class="font-title center-align mt-50px">ចុះឈ្មោះចូលក្នុងប្រព័ន្ធ</h5>
+                    <h5 class="font-title center-align mt-50px">Register To System</h5>
                     <form action="{{ route('admin.create') }}" method="POST" class="mt-25px " autocomplete="off">
                         @if (Session::get('success'))
                             <div class="alert alert-success">
@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="input-field">
                                             <i class="material-icons prefix">password</i>
-                                            <input placeholder="បញ្ជាក់លេខសម្ងាត់" id="password" name="cpassword" type="password"
+                                            <input placeholder="បញ្ជាក់លេខសម្ងាត់" id="cpassword" name="cpassword" type="password"
                                                 class="validate font-content" value="{{ old('cpassword') }}">
                                             <span class="text-danger">@error('cpassword'){{ $message }}@enderror</span>
                                             </div>
@@ -57,7 +57,7 @@
                                                 type="submit" style="background: #0D47A1; ">
                                                 <div class="flex-center">
                                                     <i class="fas fa-user-plus"></i>
-                                                    &nbsp;&nbsp;ចុះឈ្មោះ
+                                                    &nbsp;&nbsp;Register
                                                 </div>
                                             </button>
                                             <p style=" font-size:12px;text-align:center">You want login? <a
@@ -79,6 +79,20 @@
                         $(document).ready(function() {
                             $('#table').DataTable();
                         });
+                    </script>
+
+                    <script>
+                        function myFunction() {
+                            var x = document.getElementById("password");
+                            var y = document.getElementById("cpassword");
+                            if (x.type === "password" || y.type === "password") {
+                                x.type = "text";
+                                y.type = "text";
+                            } else {
+                                x.type = "password";
+                                y.type = "password";
+                            }
+                        }
                     </script>
 
                 @endpush
